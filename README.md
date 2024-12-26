@@ -124,6 +124,7 @@ Matrices are essential in computer graphics (transforming images), machine learn
 You can add vectors together or multiply them by numbers (scalars) to change their size or direction.
 
 **Vector Addition Example:**
+
 $$
 \begin{bmatrix}
 1 \\
@@ -133,8 +134,7 @@ $$
 \begin{bmatrix}
 3 \\
 4 \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 4 \\
 6 \\
@@ -165,8 +165,7 @@ $$
 A \times v = \begin{bmatrix}
 2*4 + 0*5 \\
 1*4 + 3*5 \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 8 \\
 19 \\
