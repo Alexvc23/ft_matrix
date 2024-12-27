@@ -87,7 +87,7 @@ Vectors are fundamental in computer graphics (representing positions and movemen
 
 
 When you have a vector defined by two points 
-$A(x_1, y_1)$  and $ B(x_2, y_2)$, 
+$A(x_1, y_1)$  and $B(x_2, y_2)$, 
 the most common way to find its components **(y-vertical-component and x-horizontal-component)** (in 2D) is to subtract the coordinates of \( A \) from the coordinates of \( B \). In other words:
 
 $$
@@ -138,14 +138,16 @@ For a vector $\mathbf{v} = [x, y]$ in 2D or $\mathbf{v} = [x, y, z]$ in 3D, the 
 
 
 - **2D Vector:**
-    $$
-    ||\mathbf{v}|| = \sqrt{x^2 + y^2}
-    $$
+
+$$
+||\mathbf{v}|| = \sqrt{x^2 + y^2}
+$$
 
 - **3D Vector:**
-    $$
-    ||\mathbf{v}|| = \sqrt{x^2 + y^2 + z^2}
-    $$
+
+$$
+||\mathbf{v}|| = \sqrt{x^2 + y^2 + z^2}
+$$
 
 ### **d. Example Calculation**
 
@@ -153,17 +155,17 @@ For a vector $\mathbf{v} = [x, y]$ in 2D or $\mathbf{v} = [x, y, z]$ in 3D, the 
     
     Consider the vector $\mathbf{v} = [3, 4] $.
     
-    $$
-    ||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
-    $$
+$$
+||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+$$
 
 - **3D Example:**
     
     Consider the vector $\mathbf{u} = [1, 2, 2] $.
     
-    $$
-    ||\mathbf{u}|| = \sqrt{1^2 + 2^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3
-    $$
+$$
+||\mathbf{u}|| = \sqrt{1^2 + 2^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3
+$$
 
 ### **e. Visual Representation**
 
