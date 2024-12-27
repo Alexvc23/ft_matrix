@@ -296,20 +296,27 @@ v = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-Multiply $A$ by $v$:
+Multiply $A$ by $v$ step-by-step:
 
+1. Multiply the first row of $A$ by $v$:
+$$
+2*4 + 0*5 = 8
+$$
+
+2. Multiply the second row of $A$ by $v$:
+$$
+1*4 + 3*5 = 19
+$$
+
+Combine the results into a new vector:
 $$
 A \times v = \begin{bmatrix}
-2*4 + 0*5 \\
-1*4 + 3*5 \\
-\end{bmatrix} =
-\begin{bmatrix}
 8 \\
 19 \\
 \end{bmatrix}
 $$
 
-This operation transforms the original vector \(v\) into a new vector.
+This operation transforms the original vector $v$ into a new vector.
 
 ---
 
