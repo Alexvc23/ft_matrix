@@ -194,6 +194,7 @@ $$
 
 #### Vector Addition
 To add two vectors, add their corresponding components:
+
 $$
 \begin{aligned}
 \mathbf{u} &= [2, 3] \\
@@ -204,6 +205,8 @@ $$
 
 #### Vector Subtraction
 To subtract vectors, subtract their corresponding components:
+
+
 $$
 \begin{aligned}
 \mathbf{u} &= [5, 7] \\
