@@ -1,4 +1,22 @@
 class Vector:
+    """
+    A class to represent a mathematical vector and perform basic vector operations.
+
+    Attributes:
+        data (list): A list of numbers representing the vector.
+
+    Methods:
+        __init__(data):
+            Initializes the vector with the given list of numbers.
+        _validate_same_size(other):
+            Ensures both vectors have the same size.
+        add(other):
+            Adds the corresponding elements of the two vectors.
+        sub(other):
+            Subtracts the corresponding elements of the two vectors.
+        scl(scalar):
+            Multiplies each element of the vector by the scalar.
+    """
     def __init__(self, data):
         # Initialize the vector with the given list of numbers
         self.data = data

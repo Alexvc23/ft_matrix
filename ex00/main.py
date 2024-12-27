@@ -4,31 +4,31 @@ from ex00.matrix import Matrix
 
 def main():
     # Example usage of Vector class
-    print("Starting Vector operations demonstration...")
+    print("\033[94mStarting Vector operations demonstration...\033[0m")  # Blue
 
     # Initialize two Objects Vector
     u = Vector([2.0, 3.0])
     v = Vector([5.0, 7.0])
-    print(f"Initialized vectors:\nu = {u.data}\nv = {v.data}")
+    print(f"\033[92mInitialized vectors:\nu = {u.data}\nv = {v.data}\033[0m")  # Green
 
     # Add two vectors
-    print("\nAdding vectors u + v:")
+    print("\n\033[93mAdding vectors u + v:\033[0m")  # Yellow
     u.add(v)
-    print(f"Result: {u.data}") # [7.0, 10.0]
+    print(f"\033[96mResult: {u.data}\033[0m")  # Cyan
 
     # Reset vector u and subtract vectors
-    print("\nSubtracting vectors u - v:")
+    print("\n\033[93mSubtracting vectors u - v:\033[0m")  # Yellow
     u = Vector([2.0, 3.0])
-    print(f"Reset u to: {u.data}")
+    print(f"\033[95mReset u to: {u.data}\033[0m")  # Magenta
     u.sub(v)
-    print(f"Result: {u.data}") # [-3.0, -4.0]
+    print(f"\033[96mResult: {u.data}\033[0m")  # Cyan
 
     # Scale Vector u by 2
-    print("\nScaling vector u by 2:")
+    print("\n\033[93mScaling vector u by 2:\033[0m")  # Yellow
     u = Vector([2.0, 3.0])
-    print(f"Reset u to: {u.data}")
+    print(f"\033[95mReset u to: {u.data}\033[0m")  # Magenta
     u.scl(2)
-    print(f"Result: {u.data}") # [4.0, 6.0]
+    print(f"\033[96mResult: {u.data}\033[0m")  # Cyan
 
 if __name__ == "__main__":
     main()
