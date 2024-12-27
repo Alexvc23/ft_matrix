@@ -269,8 +269,7 @@ $$
 \begin{bmatrix}
 3 \\
 4 \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 4 \\
 6 \\
@@ -301,8 +300,7 @@ $$
 A \times v = \begin{bmatrix}
 2*4 + 0*5 \\
 1*4 + 3*5 \\
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 8 \\
 19 \\
