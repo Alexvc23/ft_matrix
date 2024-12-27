@@ -43,7 +43,7 @@ Absolutely, I'd be happy to explain vectors and matrices in simple terms! Let's 
 
 ---
 
-## **1. What is a Vector?**
+## 1. What is a Vector ($\mathbf{v}$) ? 
 
 ### **a. Simple Definition**
 A **vector** is a way to represent both a **magnitude** (size) and a **direction**. Think of it as an arrow pointing from one place to another.
@@ -53,8 +53,8 @@ Imagine you're giving someone directions: "Walk 3 blocks north and 4 blocks east
 
 ### **c. Mathematical Representation**
 In math, a vector is usually written as an ordered list of numbers. For example:
-- **2D Vector**: $[x, y] \;\;i.e\; \; [3, 4]$
-- **3D Vector**: $[x, y, z] \;\;i.e\; \;[1, 5, 2]$
+- **2D Vector**: $[x, y] \,\,i.e\; \, [3, 4]$
+- **3D Vector**: $[x, y, z] \,\,i.e\, \,[1, 5, 2]$
 
 These numbers represent the vector's components along each axis (like north/south and east/west).
 
@@ -81,6 +81,141 @@ In algebra, vectors are used to solve systems of equations, represent points in 
 
 ### **f. Uses in Computer Science**
 Vectors are fundamental in computer graphics (representing positions and movements), machine learning (storing data as numerical lists), and physics simulations (modeling forces and velocities).
+
+
+### The Components of a Vector from Its Endpoints
+
+
+When you have a vector defined by two points 
+$A(x_1, y_1)$  and $ B(x_2, y_2)$, 
+the most common way to find its components **(y-vertical-component and x-horizontal-component)** (in 2D) is to subtract the coordinates of \( A \) from the coordinates of \( B \). In other words:
+
+$$
+\overrightarrow{AB} = (\,x_2 - x_1, \; y_2 - y_1\,).
+$$
+
+- **(horizontal) X-component:** $x_2 - x_1$
+- **(Vectical)Y-component:** $y_2 - y_1$
+
+
+This pair of numbers tells you how far you move horizontally and vertically to go from \( A \) to \( B \).
+ 
+1. If  $x_2 - x_1$ is **positive**, the vector moves to the **right**.  
+2. If  $x_2 - x_1$ is **negative**, it moves to the **left**.  
+3. If  $y_2 - y_1$ is **positive**, it moves **upward**.  
+4. If  $y_2 - y_1$ is **negative**, it moves **downward**.
+
+### Graphical Example
+
+Consider points $A(1, 2)$ and $B(4, 6)$:
+
+- **x-component:** $4 - 1 = 3$  
+- **y-component:** $6 - 2 = 4$
+
+The vector $\overrightarrow{AB}$ can be represented as $(3, 4)$.
+
+<details>
+    <summary><b>Click to view the graphical representation</b></summary>
+    <img src="./assets/vector_AB.png" alt="Vector AB Example" width="50%" height="50%" />
+    <p>
+    In this diagram, the red point is A(1,2), the blue point is B(4,6), and the green arrow is the vector (3,4), highlighting its horizontal and vertical components.
+    </p>
+</details>
+
+
+---
+
+### **Calculating the Magnitude** $||\mathbf{v}||$
+
+### **a. Simple Definition**
+The **magnitude** of a vector measures its length or size. It tells you how long the vector is in space.
+
+### **b. Everyday Example**
+Imagine walking from your home to a friend's house. The distance you walk represents the magnitude of the displacement vector between the two points.
+
+### **c. Mathematical Representation**
+For a vector $\mathbf{v} = [x, y]$ in 2D or $\mathbf{v} = [x, y, z]$ in 3D, the **magnitude** $||\mathbf{v}||$ is calculated using the following formula:
+
+
+- **2D Vector:**
+    $$
+    ||\mathbf{v}|| = \sqrt{x^2 + y^2}
+    $$
+
+- **3D Vector:**
+    $$
+    ||\mathbf{v}|| = \sqrt{x^2 + y^2 + z^2}
+    $$
+
+### **d. Example Calculation**
+
+- **2D Example:**
+    
+    Consider the vector $\mathbf{v} = [3, 4] $.
+    
+    $$
+    ||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+    $$
+
+- **3D Example:**
+    
+    Consider the vector $\mathbf{u} = [1, 2, 2] $.
+    
+    $$
+    ||\mathbf{u}|| = \sqrt{1^2 + 2^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3
+    $$
+
+### **e. Visual Representation**
+
+<details>
+    <summary><b>Click to view Vector Magnitude Examples</b></summary>
+
+<h5>2D Vector Magnitude:</h5>
+
+<p align="center">
+    <img src="./assets/vector_magnitude_2d.png" alt="Vector Magnitude 2D" width="50%" height="50%">
+</p>
+<p><i>The length of the arrow represents the magnitude of the vector.</i></p>
+
+<h5>3D Vector Magnitude:</h5>
+<p align="center">
+    <img src="./assets/vector_magnitude_3d.png" alt="Vector Magnitude 3D" width="50%" height="50%">
+</p>
+<p><i>The length of the arrow in three-dimensional space indicates the vector's magnitude.</i></p>
+
+</details>
+
+---
+
+## Scalar Multiplication
+
+### **a. Simple Definition**
+**Scalar Multiplication** is when you multiply a vector by a single number (scalar), affecting its magnitude but not its direction (unless negative).
+
+### **b. Mathematical Representation**
+For a scalar $a$ and vector $\mathbf{v}$:
+
+$$
+a\mathbf{v} = [ax_1, ax_2, ..., ax_n]
+$$
+
+### **c. Example**
+Given vector $\mathbf{v} = [2, 3]$ and scalar $a = 4$:
+
+$$
+4 \times [2, 3] = [8, 12]
+$$
+
+### d. Visual Representation
+<details>
+    <summary><b> Click to view Scalar Multiplication Example</b></summary>
+    <p align="center">
+        <img src="./assets/scalar_mult.png" alt="Scalar Multiplication" width="50%" height="50%" />
+    </p>
+    
+- 🔵 The blue arrow represents the original vector $[2,3]$.
+- 🟢 The green arrow represents the scaled vector $[8,12]$, obtained by multiplying the original vector by 4.
+</details>
 
 ---
 
@@ -124,6 +259,7 @@ Matrices are essential in computer graphics (transforming images), machine learn
 You can add vectors together or multiply them by numbers (scalars) to change their size or direction.
 
 **Vector Addition Example:**
+
 $$
 \begin{bmatrix}
 1 \\
