@@ -299,16 +299,21 @@ $$
 Multiply $A$ by $v$ step-by-step:
 
 1. Multiply the first row of $A$ by $v$:
+
+
 $$
-2*4 + 0*5 = 8
+2 * 4 + 0 * 5 = 8
 $$
 
 2. Multiply the second row of $A$ by $v$:
+
+
 $$
-1*4 + 3*5 = 19
+1 * 4 + 3 * 5 = 19
 $$
 
 Combine the results into a new vector:
+
 $$
 A \times v = \begin{bmatrix}
 8 \\
