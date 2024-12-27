@@ -188,6 +188,44 @@ $$
 </details>
 
 ---
+## Vector Addition and Subtraction:
+
+### Basic Operations
+
+#### Vector Addition
+To add two vectors, add their corresponding components:
+$$
+\begin{aligned}
+\mathbf{u} &= [2, 3] \\
+\mathbf{v} &= [4, 1] \\
+\mathbf{u} + \mathbf{v} &= [2+4, 3+1] = [6, 4]
+\end{aligned}
+$$
+
+#### Vector Subtraction
+To subtract vectors, subtract their corresponding components:
+$$
+\begin{aligned}
+\mathbf{u} &= [5, 7] \\
+\mathbf{v} &= [2, 3] \\
+\mathbf{u} - \mathbf{v} &= [5-2, 7-3] = [3, 4]
+\end{aligned}
+$$
+
+### 👀 Visual Representation
+
+<details>
+    <summary><b> 🌄 Click to view Vector Addition Example</b></summary>
+    <img src="./assets/vector_addition.png" alt="Vector Addition" width="50%" height="50%" />
+</details>
+
+### Key Properties
+
+- Addition is commutative: `u + v = v + u`
+- Subtraction is not commutative: `u - v ≠ v - u`
+- Zero vector addition: `v + [0,0] = v`
+
+----
 
 ## Scalar Multiplication
 
