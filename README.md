@@ -203,6 +203,13 @@ $$
 \end{aligned}
 $$
 
+### 👀 Visual Representation
+
+<details>
+    <summary><b> 🌄 Click to view Vector Addition Example</b></summary>
+    <img src="./assets/vector_addition.png" alt="Vector Addition" width="50%" height="50%" />
+</details>
+
 #### Vector Subtraction
 To subtract vectors, subtract their corresponding components:
 
@@ -215,12 +222,22 @@ $$
 \end{aligned}
 $$
 
+Here's another example with a negative vector:
+$$
+\begin{aligned}
+\mathbf{u} &= [-2, 4] \\
+\mathbf{v} &= [3, -1] \\
+\mathbf{u} - \mathbf{v} &= [-2-3, 4-(-1)] = [-5, 5]
+\end{aligned}
+$$
+
 ### 👀 Visual Representation
 
 <details>
     <summary><b> 🌄 Click to view Vector Addition Example</b></summary>
-    <img src="./assets/vector_addition.png" alt="Vector Addition" width="50%" height="50%" />
+    <img src="./assets/vector_subtraction.png" alt="Vector Addition" width="50%" height="50%" />
 </details>
+
 
 ### Key Properties
 
