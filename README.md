@@ -223,6 +223,8 @@ $$
 $$
 
 Here's another example with a negative vector:
+
+
 $$
 \begin{aligned}
 \mathbf{u} &= [-2, 4] \\
