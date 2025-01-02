@@ -336,50 +336,77 @@ $$
 \end{bmatrix}
 $$
 
-### **b. Matrix Operations**
-Matrices can be added together, multiplied by each other, or multiplied by vectors. These operations allow for complex transformations and data manipulations.
+### **b. Matrix Operations: Addition and Subtraction**
 
-**Matrix-Vector Multiplication Example:**
-Given a matrix $A$ and a vector $v$:
+In matrix operations, we can add and subtract matrices of the same dimensions. Let's explore these fundamental operations.
+
+#### Addition Example:
+Given two 2×2 matrices:
 
 $$
 A = \begin{bmatrix}
-2 & 0 \\
-1 & 3 \\
-\end{bmatrix},
-\quad
-v = \begin{bmatrix}
-4 \\
-5 \\
+1 & 2 \\
+3 & 4 \\
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+5 & 6 \\
+7 & 8 \\
 \end{bmatrix}
 $$
 
-Multiply $A$ by $v$ step-by-step:
-
-1. Multiply the first row of $A$ by $v$:
-
+Add corresponding elements:
 
 $$
-2 * 4 + 0 * 5 = 8
-$$
-
-2. Multiply the second row of $A$ by $v$:
-
-
-$$
-1 * 4 + 3 * 5 = 19
-$$
-
-Combine the results into a new vector:
-
-$$
-A \times v = \begin{bmatrix}
-8 \\
-19 \\
+A + B = \begin{bmatrix}
+1+5 & 2+6 \\
+3+7 & 4+8 \\
+\end{bmatrix} = \begin{bmatrix}
+6 & 8 \\
+10 & 12 \\
 \end{bmatrix}
 $$
 
-This operation transforms the original vector $v$ into a new vector.
+#### Subtraction Example:
+Matrix subtraction can be expressed as: A - B = A + (-1)⋅B
+
+Given two 2×2 matrices:
+
+$$
+A = \begin{bmatrix}
+3 & 5 \\
+7 & 9 \\
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+1 & 2 \\
+4 & 6 \\
+\end{bmatrix}
+$$
+
+First, calculate (-1)⋅B:
+
+$$
+(-1)⋅B = \begin{bmatrix}
+-1 & -2 \\
+-4 & -6 \\
+\end{bmatrix}
+$$
+
+Then add A and (-1)⋅B:
+
+$$
+A - B = \begin{bmatrix}
+3-1 & 5-2 \\
+7-4 & 9-6 \\
+\end{bmatrix} = \begin{bmatrix}
+2 & 3 \\
+3 & 3 \\
+\end{bmatrix}
+$$
+
+Remember:
+- **<span style="color:red">Matrices must have the same dimensions</span>**
+- Operations are performed element by element
+- These operations form the basis for more complex matrix transformations
 
 ---
 
