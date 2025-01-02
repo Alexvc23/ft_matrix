@@ -23,6 +23,8 @@ class Vector:
 
     def _validate_same_size(self, other):
         # Ensure both vectors have the same size
+        if not self.data or not other.data or not self.data[0] or not other.data[0]:
+            raise ValueError("Matrices cannot be empty")
         if len(self.data) != len(other.data):
             raise ValueError("Vectors must have the same size")
 

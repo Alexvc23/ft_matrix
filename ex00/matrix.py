@@ -9,7 +9,9 @@ class Matrix:
         self.data = data
 
     def _validate_same_size(self, other):
-        # Ensure both matrices have the same dimensions
+        # Ensure both matrices have the same dimensions and are not empty
+        if not self.data or not other.data or not self.data[0] or not other.data[0]:
+            raise ValueError("Matrices cannot be empty")
         if len(self.data) != len(other.data) or len(self.data[0]) != len(other.data[0]):
             raise ValueError("Matrices must have the same dimensions")
 
@@ -29,6 +31,7 @@ class Matrix:
 
     def scl(self, scalar):
         # Multiply each element of the matrix by the scalar
+        self._validate_same_size(self)
         for i in range(len(self.data)):
             for j in range(len(self.data[0])):
                 self.data[i][j] *= scalar
