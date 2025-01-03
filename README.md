@@ -439,11 +439,11 @@ Linear combinations are crucial in:
 
 - Input vectors: `u = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]`.
 - Scalars: `λ = [10, -2, 0.5]`.
-- Result: 
+- Result:
 
-    $$
-    (10 \times [1, 0, 0]) + (-2 \times [0, 1, 0]) + (0.5 \times [0, 0, 1]) = [10, -2, 0.5]
-    $$
+$$
+(10 \times [1, 0, 0]) + (-2 \times [0, 1, 0]) + (0.5 \times [0, 0, 1]) = [10, -2, 0.5]
+$$
 
 ### Efficiency
 
