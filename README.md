@@ -1,3 +1,36 @@
+
+## Table of Contents
+
+1. [Enter the Matrix: An Introduction to Linear Algebra](#enter-the-matrix-an-introduction-to-linear-algebra)
+2. [Overview](#overview)
+3. [Goal of this project](#goal-of-this-project)
+4. [Exercises and Topics](#exercises-and-topics)
+5. [Getting Started](#getting-started)
+6. [What is a Vector?](#1-what-is-a-vector)
+    - [Simple Definition](#a-simple-definition)
+    - [Everyday Example](#b-everyday-example)
+    - [Mathematical Representation](#c-mathematical-representation)
+    - [Visual Representation](#d-visual-representation)
+    - [Uses in Algebra](#e-uses-in-algebra)
+    - [Uses in Computer Science](#f-uses-in-computer-science)
+    - [The Components of a Vector from Its Endpoints](#the-components-of-a-vector-from-its-endpoints)
+    - [Calculating the Magnitude](#calculating-the-magnitude-mathbfv)
+7. [What is a Matrix?](#2-what-is-a-matrix)
+    - [Simple Definition](#a-simple-definition-1)
+    - [Everyday Example](#b-everyday-example-1)
+    - [Mathematical Representation](#c-mathematical-representation-1)
+    - [Visual Representation](#d-visual-representation-1)
+    - [Uses in Algebra](#e-uses-in-algebra-1)
+    - [Uses in Computer Science](#f-uses-in-computer-science-1)
+8. [Ex 00](#ex-00)
+    - [Vector Addition and Subtraction](#vector-addition-and-subtraction)
+    - [Scalar Multiplication](#scalar-multiplication)
+    - [Matrix Operations: Addition and Subtraction](#matrix-operations-addition-and-subtraction)
+9. [Ex 01](#ex-01)
+    - [What's a Linear Combination?](#whats-a-linear-combination)
+
+---
+
 # Enter the Matrix: An Introduction to Linear Algebra
 
 Welcome to **Enter the Matrix**, a comprehensive educational project designed to introduce you to the fundamental concepts of linear algebra. This module covers theoretical foundations, practical coding exercises, and explores the rich connections between linear algebra and various fields such as computer science, physics, and data science.
@@ -11,16 +44,12 @@ Linear algebra is a cornerstone of modern mathematics and its applications are v
 
 This project emphasizes practical learning through a series of exercises and challenges. It focuses on finite-dimensional vector spaces and their transformations, represented as matrices, with an emphasis on 2D and 3D spaces for better visualization.
 
-## Key Features
+## Goal of this project 
 
 - **Structured Learning**: Gradually build your understanding from basic vector operations to advanced topics like matrix decomposition and projection matrices.
 - **Hands-On Coding**: Implement fundamental operations (e.g., addition, scaling, and dot products) and explore their applications.
 - **Cross-Disciplinary Insights**: Learn how linear algebra underpins graphics rendering, machine learning, and statistical models.
 
-## Prerequisites
-
-- Basic arithmetic and familiarity with programming.
-- (Optional) Prior exposure to Boolean algebra and abstract algebra is beneficial but not mandatory.
 
 ## Exercises and Topics
 
@@ -30,35 +59,30 @@ This project includes:
 - Matrix operations: multiplication, transposition, and inversion.
 - Advanced topics: rank, projection matrices, and systems of linear equations.
 
-The exercises are implemented in a generic programming framework, allowing flexibility in choosing the programming language. Support for Rust-like generic structures is recommended.
-
 ## Getting Started
 
 1. Familiarize yourself with the provided theoretical content.
 2. Watch the **Essence of Linear Algebra** video series by 3blue1brown for a visual introduction.
 3. Start coding! Implement the exercises as described in the documentation.
 
-## Theorical part
-Absolutely, I'd be happy to explain vectors and matrices in simple terms! Let's break down each concept step by step, making it easy to understand even if you're encountering them for the first time.
-
 ---
 
-## 1. What is a Vector ($\mathbf{v}$) ? 
+## 1. What is a Vector?
 
-### **a. Simple Definition**
+### a. Simple Definition
 A **vector** is a way to represent both a **magnitude** (size) and a **direction**. Think of it as an arrow pointing from one place to another.
 
-### **b. Everyday Example**
+### b. Everyday Example
 Imagine you're giving someone directions: "Walk 3 blocks north and 4 blocks east." This direction can be represented as a vector because it has both length (how far) and direction (where to).
 
-### **c. Mathematical Representation**
+### c. Mathematical Representation
 In math, a vector is usually written as an ordered list of numbers. For example:
 - **2D Vector**: $[x, y] \,\,i.e\; \, [3, 4]$
 - **3D Vector**: $[x, y, z] \,\,i.e\, \,[1, 5, 2]$
 
 These numbers represent the vector's components along each axis (like north/south and east/west).
 
-### **d. Visual Representation**
+### d. Visual Representation
 - **2D Vector**: Picture a flat graph with an x-axis (horizontal) and y-axis (vertical). A vector $[3, 4]$ starts at the origin (0,0) and points to the position (3,4).
 
     <details>
@@ -76,15 +100,13 @@ These numbers represent the vector's components along each axis (like north/sout
         <img src="./assets/3d2.png" alt="2D Vector Example" width="50%" height="50%" />
     </details>
 
-### **e. Uses in Algebra**
+### e. Uses in Algebra
 In algebra, vectors are used to solve systems of equations, represent points in space, and perform operations like addition and scalar multiplication (changing the size of the vector).
 
-### **f. Uses in Computer Science**
+### f. Uses in Computer Science
 Vectors are fundamental in computer graphics (representing positions and movements), machine learning (storing data as numerical lists), and physics simulations (modeling forces and velocities).
 
-
 ### The Components of a Vector from Its Endpoints
-
 
 When you have a vector defined by two points 
 $A(x_1, y_1)$  and $B(x_2, y_2)$, 
@@ -96,7 +118,6 @@ $$
 
 - **(horizontal) X-component:** $x_2 - x_1$
 - **(Vectical)Y-component:** $y_2 - y_1$
-
 
 This pair of numbers tells you how far you move horizontally and vertically to go from \( A \) to \( B \).
  
@@ -122,20 +143,18 @@ The vector $\overrightarrow{AB}$ can be represented as $(3, 4)$.
     </p>
 </details>
 
-
 ---
 
-### **Calculating the Magnitude** $||\mathbf{v}||$
+### Calculating the Magnitude $||\mathbf{v}||$
 
-### **a. Simple Definition**
+#### a. Simple Definition
 The **magnitude** of a vector measures its length or size. It tells you how long the vector is in space.
 
-### **b. Everyday Example**
+#### b. Everyday Example
 Imagine walking from your home to a friend's house. The distance you walk represents the magnitude of the displacement vector between the two points.
 
-### **c. Mathematical Representation**
+#### c. Mathematical Representation
 For a vector $\mathbf{v} = [x, y]$ in 2D or $\mathbf{v} = [x, y, z]$ in 3D, the **magnitude** $||\mathbf{v}||$ is calculated using the following formula:
-
 
 - **2D Vector:**
 
@@ -149,7 +168,7 @@ $$
 ||\mathbf{v}|| = \sqrt{x^2 + y^2 + z^2}
 $$
 
-### **d. Example Calculation**
+#### d. Example Calculation
 
 - **2D Example:**
     
@@ -167,7 +186,7 @@ $$
 ||\mathbf{u}|| = \sqrt{1^2 + 2^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3
 $$
 
-### **e. Visual Representation**
+#### e. Visual Representation
 
 <details>
     <summary><b>Click to view Vector Magnitude Examples</b></summary>
@@ -188,7 +207,43 @@ $$
 </details>
 
 ---
-## Vector Addition and Subtraction:
+
+## 2. What is a Matrix?
+
+### a. Simple Definition
+A **matrix** is a rectangular array of numbers arranged in rows and columns. You can think of it as a spreadsheet with multiple rows and columns.
+
+### b. Everyday Example
+Imagine an Excel spreadsheet where each cell contains a number. This grid of numbers is similar to a matrix.
+
+### c. Mathematical Representation
+A matrix is written using brackets with rows and columns. For example, a 2x3 matrix (2 rows and 3 columns) looks like this:
+
+$$
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\end{bmatrix}
+$$
+
+### d. Visual Representation
+Think of a matrix as a table:
+
+|   | Column 1 | Column 2 | Column 3 |
+|---|:--------:|:--------:|:--------:|
+| **Row 1** |    1     |     2    |     3    |
+| **Row 2** |    4     |     5    |     6    |
+
+### e. Uses in Algebra
+In algebra, matrices are used to solve systems of equations, perform linear transformations (like rotating or scaling shapes), and represent data in a structured form.
+
+### f. Uses in Computer Science
+Matrices are essential in computer graphics (transforming images), machine learning (handling large datasets), network analysis, and solving complex algorithms efficiently.
+
+---
+# Ex 00
+
+## Vector Addition and Subtraction
 
 ### Basic Operations
 
@@ -203,16 +258,15 @@ $$
 \end{aligned}
 $$
 
-### 👀 Visual Representation
+#### Visual Representation
 
 <details>
-    <summary><b> 🌄 Click to view Vector Addition Example</b></summary>
+    <summary><b>Click to view Vector Addition Example</b></summary>
     <img src="./assets/vector_addition.png" alt="Vector Addition" width="50%" height="50%" />
 </details>
 
 #### Vector Subtraction
 To subtract vectors, subtract their corresponding components:
-
 
 $$
 \begin{aligned}
@@ -224,7 +278,6 @@ $$
 
 Here's another example with a negative vector:
 
-
 $$
 \begin{aligned}
 \mathbf{u} &= [-2, 4] \\
@@ -233,116 +286,53 @@ $$
 \end{aligned}
 $$
 
-### 👀 Visual Representation
+#### Visual Representation
 
 <details>
-    <summary><b> 🌄 Click to view Vector Addition Example</b></summary>
-    <img src="./assets/vector_subtraction.png" alt="Vector Addition" width="50%" height="50%" />
+    <summary><b>Click to view Vector Subtraction Example</b></summary>
+    <img src="./assets/vector_subtraction.png" alt="Vector Subtraction" width="50%" height="50%" />
 </details>
-
 
 ### Key Properties
 
-- Addition is commutative: `u + v = v + u`
-- Subtraction is not commutative: `u - v ≠ v - u`
-- Zero vector addition: `v + [0,0] = v`
-
-----
+- Addition is commutative: $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$
+- Subtraction is not commutative: $\mathbf{u} - \mathbf{v} \neq \mathbf{v} - \mathbf{u}$
+- Zero vector addition: $\mathbf{v} + [0,0] = \mathbf{v}$
 
 ## Scalar Multiplication
 
-### **a. Simple Definition**
+### Simple Definition
 **Scalar Multiplication** is when you multiply a vector by a single number (scalar), affecting its magnitude but not its direction (unless negative).
 
-### **b. Mathematical Representation**
+### Mathematical Representation
 For a scalar $a$ and vector $\mathbf{v}$:
 
 $$
 a\mathbf{v} = [ax_1, ax_2, ..., ax_n]
 $$
 
-### **c. Example**
+### Example
 Given vector $\mathbf{v} = [2, 3]$ and scalar $a = 4$:
 
 $$
 4 \times [2, 3] = [8, 12]
 $$
 
-### d. Visual Representation
+### Visual Representation
 <details>
-    <summary><b> Click to view Scalar Multiplication Example</b></summary>
+    <summary><b>Click to view Scalar Multiplication Example</b></summary>
     <p align="center">
         <img src="./assets/scalar_mult.png" alt="Scalar Multiplication" width="50%" height="50%" />
     </p>
-    
-- 🔵 The blue arrow represents the original vector $[2,3]$.
-- 🟢 The green arrow represents the scaled vector $[8,12]$, obtained by multiplying the original vector by 4.
+    <ul>
+        <li>🔵 The blue arrow represents the original vector $[2,3]$.</li>
+        <li>🟢 The green arrow represents the scaled vector $[8,12]$, obtained by multiplying the original vector by 4.</li>
+    </ul>
 </details>
 
----
+## Matrix Operations: Addition and Subtraction
 
-## **2. What is a Matrix?**
-
-### **a. Simple Definition**
-A **matrix** is a rectangular array of numbers arranged in rows and columns. You can think of it as a spreadsheet with multiple rows and columns.
-
-### **b. Everyday Example**
-Imagine an Excel spreadsheet where each cell contains a number. This grid of numbers is similar to a matrix.
-
-### **c. Mathematical Representation**
-A matrix is written using brackets with rows and columns. For example, a 2x3 matrix (2 rows and 3 columns) looks like this:
-
-$$
-\begin{bmatrix}
-1 & 2 & 3 \\
-4 & 5 & 6 \\
-\end{bmatrix}
-$$
-
-### **d. Visual Representation**
-Think of a matrix as a table:
-
-|   | Column 1 | Column 2 | Column 3 |
-|---|:--------:|:--------:|:--------:|
-| **Row 1** |    1     |     2    |     3    |
-| **Row 2** |    4     |     5    |     6    |
-
-### **e. Uses in Algebra**
-In algebra, matrices are used to solve systems of equations, perform linear transformations (like rotating or scaling shapes), and represent data in a structured form.
-
-### **f. Uses in Computer Science**
-Matrices are essential in computer graphics (transforming images), machine learning (handling large datasets), network analysis, and solving complex algorithms efficiently.
-
----
-
-## **3. How Do Vectors and Matrices Work Together?**
-
-### **a. Combining Vectors**
-You can add vectors together or multiply them by numbers (scalars) to change their size or direction.
-
-**Vector Addition Example:**
-
-$$
-\begin{bmatrix}
-1 \\
-2 \\
-\end{bmatrix}
-+
-\begin{bmatrix}
-3 \\
-4 \\
-\end{bmatrix} =
-\begin{bmatrix}
-4 \\
-6 \\
-\end{bmatrix}
-$$
-
-### **b. Matrix Operations: Addition and Subtraction**
-
-In matrix operations, we can add and subtract matrices of the same dimensions. Let's explore these fundamental operations.
-
-#### Addition Example:
+### Addition Example
 Given two 2×2 matrices:
 
 $$
@@ -368,8 +358,8 @@ A + B = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-#### Subtraction Example:
-Matrix subtraction can be expressed as: A - B = A + (-1)⋅B
+### Subtraction Example
+Matrix subtraction can be expressed as: $A - B = A + (-1)⋅B$
 
 Given two 2×2 matrices:
 
@@ -384,7 +374,7 @@ B = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-First, calculate (-1)⋅B:
+First, calculate $(-1)⋅B$:
 
 $$
 (-1)⋅B = \begin{bmatrix}
@@ -393,7 +383,7 @@ $$
 \end{bmatrix}
 $$
 
-Then add A and (-1)⋅B:
+Then add $A$ and $(-1)⋅B$:
 
 $$
 A - B = \begin{bmatrix}
@@ -405,51 +395,62 @@ A - B = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-Remember:
-- **<span style="color:red">Matrices must have the same dimensions</span>**
-- Operations are performed element by element
-- These operations form the basis for more complex matrix transformations
+### Key Properties
 
----
+- Matrices must have the same dimensions.
+- Operations are performed element by element.
+- These operations form the basis for more complex matrix transformations.
 
-## **4. Practical Applications**
+-------------------------------------------------------------------------
 
-### **a. Computer Graphics**
-- **Vectors** represent points, directions, and movements in 2D or 3D space.
-- **Matrices** perform transformations like rotation, scaling, and translation of images and models.
+# ex 01
 
-### **b. Machine Learning**
-- **Vectors** store features or data points (e.g., characteristics of a house: size, number of rooms).
-- **Matrices** represent datasets where each row is a data point and each column is a feature.
+## What's a Linear Combination?
 
----
+A linear combination involves taking several vectors and scaling each one by a number (called a scalar), then adding them up. For instance:
 
-## **5. Key Takeaways**
+$$
+\text{Result} = (2 \times [1, 0, 0]) + (3 \times [0, 1, 0]) = [2, 0, 0] + [0, 3, 0] = [2, 3, 0]
+$$
 
-- **Vectors** are ordered lists of numbers representing magnitude and direction. They're like arrows in space or lists of data.
-  
-- **Matrices** are grids of numbers arranged in rows and columns. They're like spreadsheets or tables of data.
+### Real-World Applications
 
-- Both vectors and matrices are fundamental tools in both **algebra** and **computer science**, enabling the representation and manipulation of complex data and transformations.
+Linear combinations are crucial in:
+- **Computer Graphics**: Blending colors or positions
+- **Physics**: Calculating forces or velocities
+- **Economics**: Portfolio optimization
+- **Signal Processing**: Combining waveforms
 
-- Understanding vectors and matrices opens the door to more advanced topics in mathematics, programming, and various scientific fields.
+### Inputs of the Function
 
----
+- A list of vectors (e.g., `u = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]`).
+- A list of scalars (e.g., `λ = [10, -2, 0.5]`).
 
+### Output
 
-## Resources
+- A single vector that is the result of applying the scalars to the corresponding vectors and summing them up.
 
-- [Essence of Linear Algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) by 3blue1brown.
-- Additional reading: [Wikipedia - Vector Space](https://en.wikipedia.org/wiki/Vector_space)
+### How the Function Works
 
-## Contributing
+- Multiply each vector by its corresponding scalar.
+- Add the resulting scaled vectors together.
 
-This is a peer-learning project. Collaborate with your peers, review their code, and refine your understanding through feedback.
+### Example
 
-## Submission Guidelines
+- Input vectors: `u = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]`.
+- Scalars: `λ = [10, -2, 0.5]`.
+- Result: 
 
-Submit your completed code in your Git repository as per the project guidelines. Ensure all files are correctly named and organized.
+    $$
+    (10 \times [1, 0, 0]) + (-2 \times [0, 1, 0]) + (0.5 \times [0, 0, 1]) = [10, -2, 0.5]
+    $$
 
----
+### Efficiency
 
-Dive into the world of vectors and matrices, and unlock the power of linear algebra!
+- The problem states that the solution must have a complexity of $O(n)$, where $n$ is the total number of numbers in all the vectors combined. <span style="color:red"> This means your solution should process each coordinate exactly once</span>.
+
+### Constraints
+
+- All vectors must have the same dimension.
+- The number of scalars must match the number of vectors.
+- Scalars and vector components should be real numbers.

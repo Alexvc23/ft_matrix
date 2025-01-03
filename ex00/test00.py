@@ -1,6 +1,6 @@
 import pytest
-from ex00.vector import Vector
-from ex00.matrix import Matrix
+from .vector import Vector
+from .matrix import Matrix
 
 # Vector tests
 def test_vector_addition():

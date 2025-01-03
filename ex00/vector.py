@@ -1,3 +1,5 @@
+from typing import List
+
 class Vector:
     """
     A class to represent a mathematical vector and perform basic vector operations.
@@ -46,3 +48,6 @@ class Vector:
         # Multiply each element of the vector by the scalar
         for i in range(len(self.data)):
             self.data[i] *= scalar
+
+            from typing import List
+
