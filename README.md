@@ -409,6 +409,34 @@ $$
 
 A linear combination involves taking several vectors and scaling each one by a number (called a scalar), then adding them up. For instance:
 
+To understand the linear combination, let's break it down step by step:
+
+### Example
+
+Given vectors and scalars:
+- Vectors: $\mathbf{u_1} = [1, 0, 0]$, $\mathbf{u_2} = [0, 1, 0]$
+- Scalars: $a = 2$, $b = 3$
+
+### Calculation
+
+1. **Scale each vector by its corresponding scalar:**
+
+$$
+a \times \mathbf{u_1} = 2 \times [1, 0, 0] = [2, 0, 0]
+$$
+
+$$
+b \times \mathbf{u_2} = 3 \times [0, 1, 0] = [0, 3, 0]
+$$
+
+2. **Add the scaled vectors:**
+
+$$
+\text{Result} = [2, 0, 0] + [0, 3, 0] = [2, 3, 0]
+$$
+
+So, the linear combination of the vectors $\mathbf{u_1}$ and $\mathbf{u_2}$ with scalars $a$ and $b$ is:
+
 $$
 \text{Result} = (2 \times [1, 0, 0]) + (3 \times [0, 1, 0]) = [2, 0, 0] + [0, 3, 0] = [2, 3, 0]
 $$
