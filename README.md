@@ -482,3 +482,63 @@ $$
 - All vectors must have the same dimension.
 - The number of scalars must match the number of vectors.
 - Scalars and vector components should be real numbers.
+
+# Ex 03
+
+## The Dot Product
+
+The dot product is a fundamental operation between two vectors that results in a scalar value. It's also called the scalar product or inner product.
+
+### Definition
+
+For two vectors $\mathbf{u} = [u_1, u_2, ..., u_n]$ and $\mathbf{v} = [v_1, v_2, ..., v_n]$, their dot product is:
+
+$$
+\mathbf{u} \cdot \mathbf{v} = u_1 \times v_1 + u_2 \times v_2 + ... + u_n \times v_n = \sum_{i=1}^{n} u_i v_i
+$$
+
+### Example Calculation
+
+If $\mathbf{u} = [1, 2, 3]$ and $\mathbf{v} = [4, 5, 6]$:
+
+$$
+\mathbf{u} \cdot \mathbf{v} = 1 \times 4 + 2 \times 5 + 3 \times 6 = 4 + 10 + 18 = 32
+$$
+
+### Geometric Interpretation
+
+The dot product has a geometric meaning:
+
+$$
+\mathbf{u} \cdot \mathbf{v} = ||\mathbf{u}|| \times ||\mathbf{v}|| \times \cos(\theta)
+$$
+
+Where:
+- $||\mathbf{u}||$ and $||\mathbf{v}||$ are the magnitudes of the vectors
+- $\theta$ is the angle between them
+
+<details>
+    <summary><b>Click to view Geometric Representation</b></summary>
+    <img src="./assets/dot_product.png" alt="Dot Product Geometry" width="50%" height="50%" />
+</details>
+
+### Properties
+
+- **Commutative**: $\mathbf{u} \cdot \mathbf{v} = \mathbf{v} \cdot \mathbf{u}$
+- **Distributive**: $\mathbf{u} \cdot (\mathbf{v} + \mathbf{w}) = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w}$
+- **Scalar Multiplication**: $(a\mathbf{u}) \cdot \mathbf{v} = a(\mathbf{u} \cdot \mathbf{v})$
+- **Zero Vector**: If $\mathbf{u} = \mathbf{0}$ or $\mathbf{v} = \mathbf{0}$, then $\mathbf{u} \cdot \mathbf{v} = 0$
+- **Perpendicular Vectors**: If $\mathbf{u} \cdot \mathbf{v} = 0$ and neither vector is zero, then $\mathbf{u}$ and $\mathbf{v}$ are perpendicular
+
+### Applications
+
+- **Work in Physics**: When a force moves an object, the work done is the dot product of force and displacement
+- **Projection**: Finding how much of one vector lies in the direction of another
+- **Orthogonality Testing**: Checking if vectors are perpendicular
+- **Machine Learning**: Computing similarity between vectors in vector spaces
+
+### Implementation Considerations
+
+- Both vectors must have the same dimension
+- The operation has linear time complexity O(n), where n is the dimension of the vectors
+- Handle edge cases like zero vectors appropriately

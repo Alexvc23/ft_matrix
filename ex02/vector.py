@@ -1,190 +1,77 @@
-from typing import List
-
 class Vector:
     """
-    A class to represent a mathematical vector and perform basic vector operations.
-
-    Attributes:
-        data (list): A list of numbers representing the vector.
-
+    A class representing a mathematical vector with support for linear interpolation.
     """
+
+    # ──────────────────────────────────────────────────────────────────────
     # Constructor
     def __init__(self, data):
-        # Initialize the vector with the given list of numbers
+        """
+        Initialize the vector with a list of numbers.
+        
+        Args:
+            data (list of float): The list representing the vector coordinates.
+        """
         self.data = data
-    # ──────────────────────────────────────────────────────────────────────
+
+    # ──────────────────────────────────────────────────────────────────────`
     def _validate_same_size(self, other):
         """
-        Validates that two vectors have the same non-zero size.
-
-        This method checks that neither vector is empty and both have the same dimensions.
-        It's typically used before performing operations that require vectors of matching sizes.
-
+        Validates that this vector and another vector have the same non-empty size.
+        
         Args:
-            other: Another vector object to compare with the current instance.
-            
+            other (Vector): The other vector to compare against.
+        
         Raises:
-            ValueError: If either vector is empty or if the vectors have different sizes.
+            ValueError: If either vector is empty or if their sizes differ.
         """
-        # Ensure both vectors have the same size
-        if not self.data or not other.data or not self.data[0] or not other.data[0]:
-            raise ValueError("Matrices cannot be empty")
+        if not self.data or not other.data:
+            raise ValueError("Vectors cannot be empty")
         if len(self.data) != len(other.data):
             raise ValueError("Vectors must have the same size")
 
     # ──────────────────────────────────────────────────────────────────────
-    def add(self, other):
+
+    # this is used to define the string representation of the object.
+    # e.g print(Vector([1, 2, 3])) will print the vector as: [1, 2, 3]
+    # this is important for debugging and logging purposes.
+    def __repr__(self):
         """
-        Add another vector to this vector in-place.
-
-        This method performs element-wise addition with another vector and modifies the current vector.
-
-        Args:
-            other (Vector): The vector to add to this vector. Must have the same dimensions.
-
-        Raises:
-            ValueError: If the vectors have different dimensions.
-
-        Example:
-            >>> v1 = Vector([1, 2, 3])
-            >>> v2 = Vector([4, 5, 6])
-            >>> v1.add(v2)
-            >>> v1.data
-            [5, 7, 9]
+        Returns a string representation of the vector.
         """
-        # Validate sizes before addition
-        self._validate_same_size(other)
-        # Add the corresponding elements of the two vectors
-        for i in range(len(self.data)):
-            self.data[i] += other.data[i]
+        return "[" + ", ".join(str(x) for x in self.data) + "]"
 
     # ──────────────────────────────────────────────────────────────────────
-    def sub(self, other):
+    # staticmethod decorator is used to define a method that does not operate on an instance of the class.
+    # e.g Vector.lerp(u, v, t) where u and v are not instances of the Vector class.
+    @staticmethod
+    def lerp(u, v, t: float):
         """
-        Subtracts another vector from the current vector in-place.
-
-        This method performs element-wise subtraction of the elements of 'other'
-        from the corresponding elements of this vector, modifying the current vector.
-
-        Parameters:
-        ----------
-        other : Vector
-            The vector to subtract from this vector. Must have the same dimensions.
-
-        Returns:
-        -------
-        None
-            The method modifies the current vector in-place.
-
-        Raises:
-        ------
-        ValueError
-            If the vectors have different dimensions.
-        """
-        # Validate sizes before subtraction
-        self._validate_same_size(other)
-        # Subtract the corresponding elements of the two vectors
-        for i in range(len(self.data)):
-            self.data[i] -= other.data[i]
-
-    # ──────────────────────────────────────────────────────────────────────
-    def scl(self, scalar):
-        """
-        Multiply each element of the vector by a scalar.
-
+        Linearly interpolates between two vectors u and v with interpolation factor t.
+        
+        The interpolation is computed element-wise using:
+            result = u + (v - u) * t
+        
         Args:
-            scalar (int or float): The value by which to multiply each element of the vector.
-
+            u (Vector): The starting vector.
+            v (Vector): The ending vector.
+            t (float): The interpolation factor (must be between 0 and 1).
+        
         Returns:
-            None: The vector is modified in-place.
-
-        Example:
-            >>> v = Vector([1, 2, 3])
-            >>> v.scl(2)
-            >>> v.data
-            [2, 4, 6]
-        """
-        # Multiply each element of the vector by the scalar
-        for i in range(len(self.data)):
-            self.data[i] *= scalar
-
-    # ──────────────────────────────────────────────────────────────────────
-    def linear_combination(vectors: List[List[float]], scalars: List[float]) -> List[float]:
-        """
-        Computes the linear combination of vectors with their corresponding scalars.
-        Linear combination is the sum of each vector multiplied by its scalar:
-        result = a₁v₁ + a₂v₂ + ... + aₙvₙ
-        where aᵢ are scalars and vᵢ are vectors.
-        Args:
-            vectors (List[List[float]]): A list of vectors where each vector is a list of floats
-            scalars (List[float]): A list of scalars to multiply with each vector
-        Returns:
-            List[float]: The resulting vector from the linear combination
+            Vector: A new vector representing the interpolated result.
+        
         Raises:
-            ValueError: If the number of vectors doesn't match the number of scalars
-                       or if vectors have different lengths
-        """
-
-        if not vectors or not scalars:
-            raise ValueError("Vectors and scalars lists cannot be empty")
-
-        if len(vectors) != len(scalars):
-            raise ValueError("The number of vectors must match the number of scalars.")
-
-        # Check that all vectors have the same length
-        expected_length = len(vectors[0])
-        for i, vector in enumerate(vectors):
-            if len(vector) != expected_length:
-                raise ValueError(f"Vector at index {i} has different length ({len(vector)}) than expected ({expected_length})")
-
-        # Initialize the result vector with zeros, same size as the first vector
-        result = [0.0] * expected_length
-
-        # Iterate through each vector and its corresponding scalar
-        for vector, scalar in zip(vectors, scalars, strict=True):
-            for i in range(len(vector)):
-                old_value = result[i]
-                result[i] += scalar * vector[i]
-    
-        return result
-
-    # ──────────────────────────────────────────────────────────────────────────────
-
-    def lerp(u, v, t):
-        """
-        Linearly interpolates between values or sequences.
-        Performs linear interpolation between two values or sequences based on the formula:
-        result = u + (v - u) * t
-        Parameters:
-            u: Starting value (int, float) or sequence (list, tuple)
-            v: Ending value (int, float) or sequence (list, tuple)
-            t: Interpolation factor, typically between 0 and 1
-               t=0 gives u, t=1 gives v, and intermediate values blend linearly
-        Returns:
-            The interpolated value or sequence (same type as input)
-        Raises:
-            ValueError: If u and v are sequences with different lengths
-            TypeError: If u and v are unsupported types
+            ValueError: If t is not between 0 and 1 or if the vectors have different sizes.
+        
         Examples:
-            >>> lerp(0, 10, 0.5)
-            5.0
-            >>> lerp([0, 0], [10, 20], 0.5)
-            [5.0, 10.0]
+            >>> u = Vector([2.0, 1.0])
+            >>> v = Vector([4.0, 2.0])
+            >>> print(Vector.lerp(u, v, 0.3))
+            [2.6, 1.3]
         """
-
-        # If u and v are numbers (float/int), return the usual formula
-        if isinstance(u, (int, float)) and isinstance(v, (int, float)):
-            return u + (v - u) * t
+        if not (0.0 <= t <= 1.0):
+            raise ValueError("Interpolation factor t must be between 0 and 1")
         
-        # If u and v are lists/tuples, perform element-wise interpolation
-        elif isinstance(u, (list, tuple)) and isinstance(v, (list, tuple)):
-            # Ensure they have the same length
-            if len(u) != len(v):
-                raise ValueError("Cannot interpolate between sequences of different lengths.")
-            
-            # Recursively interpolate each element
-            return type(u)(lerp(ui, vi, t) for ui, vi in zip(u, v))
-        
-        else:
-            # Unsupported type
-            raise TypeError(f"Unsupported type for lerp: {type(u)} and {type(v)}")
+        u._validate_same_size(v)
+        result_data = [a + (b - a) * t for a, b in zip(u.data, v.data)]
+        return Vector(result_data)
