@@ -97,6 +97,8 @@ class Vector:
         print(f"Final result: {result}")
         return result
 
+    # ──────────────────────────────────────────────────────────────────────────────
+
     def lerp(u, v, t):
         """
         Linear interpolation between two values (u and v)
