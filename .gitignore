@@ -121,3 +121,4 @@ cython_debug/
 # Poetry
 poetry.lock
 
+current_project_structure.txt
