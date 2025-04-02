@@ -483,6 +483,79 @@ $$
 - The number of scalars must match the number of vectors.
 - Scalars and vector components should be real numbers.
 
+# Ex 02
+
+## Linear Interpolation
+
+Linear interpolation (often abbreviated as "lerp") is a method of curve fitting using linear polynomials to construct new data points within the range of a discrete set of known data points.
+
+### Definition
+
+Linear interpolation connects two known points with a straight line and finds points along that line. The formula for linear interpolation between two points is:
+
+$$
+\text{lerp}(a, b, t) = a + t \times (b - a)
+$$
+
+Where:
+- $a$ is the starting value
+- $b$ is the ending value
+- $t$ is the interpolation parameter (typically between 0 and 1)
+
+### Example Calculation
+
+If we want to find a point 30% of the way from 10 to 20:
+
+$$
+\text{lerp}(10, 20, 0.3) = 10 + 0.3 \times (20 - 10) = 10 + 0.3 \times 10 = 10 + 3 = 13
+$$
+
+### Visual Representation
+
+<details>
+    <summary><b>Click to view Linear Interpolation Example</b></summary>
+    <img src="./assets/linear_interpolation.png" alt="Linear Interpolation" width="50%" height="50%" />
+    <p><i>The blue line represents linear interpolation between points A and B. Parameter t controls the position along this line.</i></p>
+</details>
+
+### Vector Interpolation
+
+Linear interpolation works with vectors by applying the formula to each component:
+
+For vectors $\mathbf{v_1} = [a_1, a_2, ..., a_n]$ and $\mathbf{v_2} = [b_1, b_2, ..., b_n]$:
+
+$$
+\text{lerp}(\mathbf{v_1}, \mathbf{v_2}, t) = [a_1 + t(b_1 - a_1), a_2 + t(b_2 - a_2), ..., a_n + t(b_n - a_n)]
+$$
+
+### Example with Vectors
+
+If $\mathbf{v_1} = [1, 2, 3]$ and $\mathbf{v_2} = [4, 5, 6]$ with $t = 0.5$:
+
+$$
+\begin{aligned}
+\text{lerp}(\mathbf{v_1}, \mathbf{v_2}, 0.5) &= [1 + 0.5(4-1), 2 + 0.5(5-2), 3 + 0.5(6-3)] \\
+&= [1 + 0.5 \times 3, 2 + 0.5 \times 3, 3 + 0.5 \times 3] \\
+&= [1 + 1.5, 2 + 1.5, 3 + 1.5] \\
+&= [2.5, 3.5, 4.5]
+\end{aligned}
+$$
+
+### Applications
+
+- **Computer Graphics**: Smoothly transitioning between positions, colors, or rotations
+- **Animation**: Creating in-between frames for smooth movement
+- **Data Visualization**: Generating color gradients or smooth transitions
+- **Finance**: Approximating values between known data points
+
+### Implementation Considerations
+
+- Parameter $t$ is not restricted to [0,1], but values in this range interpolate between the points
+- When $t = 0$, the result equals the first point
+- When $t = 1$, the result equals the second point
+- The vectors must have the same dimension
+- The operation has linear time complexity O(n), where n is the dimension of the vectors
+
 # Ex 03
 
 ## The Dot Product
