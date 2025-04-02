@@ -124,14 +124,11 @@ class Vector:
             ValueError: If the number of vectors doesn't match the number of scalars
                        or if vectors have different lengths
         """
-        print(f"Input vectors: {vectors}")
-        print(f"Input scalars: {scalars}")
 
         if not vectors or not scalars:
             raise ValueError("Vectors and scalars lists cannot be empty")
 
         if len(vectors) != len(scalars):
-            print(f"Error: Vector count ({len(vectors)}) != Scalar count ({len(scalars)})")
             raise ValueError("The number of vectors must match the number of scalars.")
 
         # Check that all vectors have the same length
@@ -142,17 +139,13 @@ class Vector:
 
         # Initialize the result vector with zeros, same size as the first vector
         result = [0.0] * expected_length
-        print(f"Initialized result vector: {result}")
 
         # Iterate through each vector and its corresponding scalar
         for vector, scalar in zip(vectors, scalars, strict=True):
-            print(f"\nProcessing vector {vector} with scalar {scalar}")
             for i in range(len(vector)):
                 old_value = result[i]
                 result[i] += scalar * vector[i]
-                print(f"Position {i}: {old_value} + ({scalar} * {vector[i]}) = {result[i]}")
     
-        print(f"Final result: {result}")
         return result
 
     # ──────────────────────────────────────────────────────────────────────────────
