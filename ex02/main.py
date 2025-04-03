@@ -1,35 +1,64 @@
 from vector import Vector
 from matrix import Matrix
-from colorama import Fore, Style, init
+
+# ──────────────────────────────────────────────────────────────────────────────
+
+def lerp(u, v, t):
+    """
+    Generic linear interpolation function.
+
+    For numbers:
+        returns u + (v - u) * t
+    For Vector and Matrix types:
+        calls the corresponding static lerp method.
+    
+    Args:
+        u: A number, Vector, or Matrix.
+        v: A number, Vector, or Matrix.
+        t (float): Interpolation factor (0 ≤ t ≤ 1).
+
+    Returns:
+        The interpolated result of the same type as u and v.
+
+    Raises:
+        TypeError: If u and v are of incompatible types.
+    """
+    if isinstance(u, (int, float)) and isinstance(v, (int, float)):
+        return u + (v - u) * t
+    elif isinstance(u, Vector) and isinstance(v, Vector):
+        return Vector.lerp(u, v, t)
+    elif isinstance(u, Matrix) and isinstance(v, Matrix):
+        return Matrix.lerp(u, v, t)
+    else:
+        raise TypeError("Unsupported types for lerp")
+
+# ──────────────────────────────────────────────────────────────────────────────
 
 def main():
-    # Initialize colorama
-    init()
+
+    print("Generic lerp function examples:\n")
     
-    print(Fore.CYAN + "Linear Interpolation Demo for ex02" + Style.RESET_ALL)
+    # Numbers
+    print("lerp(0., 1., 0.) =", lerp(0., 1., 0.))     # Expected: 0.0
+    print("lerp(0., 1., 1.) =", lerp(0., 1., 1.))     # Expected: 1.0
+    print("lerp(0., 1., 0.5) =", lerp(0., 1., 0.5))    # Expected: 0.5
+    print("lerp(21., 42., 0.3) =", lerp(21., 42., 0.3))# Expected: 27.3
+    print()
     
-    # Vector interpolation demonstration
-    print(Fore.GREEN + "\nVector Interpolation:" + Style.RESET_ALL)
-    v1 = Vector([2.0, 1.0])
-    v2 = Vector([4.0, 2.0])
-    t_v = 0.3
-    interpolated_vector = Vector.lerp(v1, v2, t_v)
-    print(f"{Fore.YELLOW}v1: {v1}{Style.RESET_ALL}")
-    print(f"{Fore.YELLOW}v2: {v2}{Style.RESET_ALL}")
-    print(f"{Fore.MAGENTA}Interpolated vector (t = {t_v}): {interpolated_vector}{Style.RESET_ALL}")
+    # Vectors
+    v1 = Vector.from_list([2., 1.])
+    v2 = Vector.from_list([4., 2.])
+    result_vector = lerp(v1, v2, 0.3)
+    print("lerp(Vector.from_list([2., 1.]), Vector.from_list([4., 2.]), 0.3) returns:")
+    print(result_vector)  # Expected: [2.6, 1.3]
+    print()
     
-    # Matrix interpolation demonstration
-    print(Fore.GREEN + "\nMatrix Interpolation:" + Style.RESET_ALL)
-    m1 = Matrix([[2.0, 1.0], [3.0, 4.0]])
-    m2 = Matrix([[20.0, 10.0], [30.0, 40.0]])
-    t_m = 0.5
-    interpolated_matrix = Matrix.lerp(m1, m2, t_m)
-    print(f"{Fore.YELLOW}Matrix 1:{Style.RESET_ALL}")
-    print(f"{Fore.BLUE}{m1}{Style.RESET_ALL}")
-    print(f"{Fore.YELLOW}Matrix 2:{Style.RESET_ALL}")
-    print(f"{Fore.BLUE}{m2}{Style.RESET_ALL}")
-    print(f"{Fore.MAGENTA}Interpolated matrix (t = {t_m}):{Style.RESET_ALL}")
-    print(f"{Fore.BLUE}{interpolated_matrix}{Style.RESET_ALL}")
+    # Matrices
+    m1 = Matrix.from_list([[2., 1.], [3., 4.]])
+    m2 = Matrix.from_list([[20., 10.], [30., 40.]])
+    result_matrix = lerp(m1, m2, 0.5)
+    print("lerp(Matrix.from_list([[2., 1.], [3., 4.]]), Matrix.from_list([[20., 10.], [30., 40.]]), 0.5) returns:")
+    print(result_matrix)  # Expected: [[11.0, 5.5], [16.5, 22.0]]
 
 if __name__ == '__main__':
     main()

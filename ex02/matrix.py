@@ -43,54 +43,48 @@ class Matrix:
     # e.g Matrix.lerp(u, v, t) where u and v are not instances of the Matrix class.
     @staticmethod
     def lerp(u, v, t: float):
-        """ 
-        Performs linear interpolation between matrices u and v with factor t.
-        
-        Linear interpolation calculates a matrix that is a weighted average between
-        two matrices, where the weight is determined by the factor t.
-        
-        Parameters:
-        -----------
-        u : Matrix
-            The first matrix (starting point of interpolation).
-        v : Matrix
-            The second matrix (ending point of interpolation).
-        t : float
-            The interpolation factor in the range [0.0, 1.0].
-            When t=0, the result equals u.
-            When t=1, the result equals v.
-        
+        """
+        Linearly interpolates between two matrices u and v with factor t.
+
+        Formula: result = u + (v - u) * t, applied element-wise.
+
+        Args:
+            u (Matrix): Starting matrix.
+            v (Matrix): Ending matrix.
+            t (float): Interpolation factor (0 ≤ t ≤ 1).
+
         Returns:
-        --------
-        Matrix
-            A new matrix with values interpolated between u and v.
-        
+            Matrix: A new matrix with interpolated elements.
+
         Raises:
-        -------
-        ValueError
-            If the interpolation factor t is not between 0 and 1.
-            If the matrices u and v are not the same size.
-        
+            ValueError: If t is not in [0,1] or if the matrices have mismatched dimensions.
+
         Examples:
-        ---------
-        >>> m1 = Matrix([[0, 0], [0, 0]])
-        >>> m2 = Matrix([[1, 1], [1, 1]])
-        >>> lerp(m1, m2, 0.5)
-        Matrix([[0.5, 0.5], [0.5, 0.5]])
+            >>> m1 = Matrix.from_list([[2., 1.], [3., 4.]])
+            >>> m2 = Matrix.from_list([[20., 10.], [30., 40.]])
+            >>> print(Matrix.lerp(m1, m2, 0.5))
+            [11.0, 5.5]
+            [16.5, 22.0]
         """
         if not (0.0 <= t <= 1.0):
             raise ValueError("Interpolation factor t must be between 0 and 1")
-
         u._validate_same_size(v)
+        new_data = []
+        for row_u, row_v in zip(u.data, v.data):
+            new_row = [a + (b - a) * t for a, b in zip(row_u, row_v)]
+            new_data.append(new_row)
+        return Matrix(new_data)
 
-        result = []
-        for i in range(len(u.data)):
-            row = []
-            for j in range(len(u.data[0])):
-                a = u.data[i][j]
-                b = v.data[i][j]
-                interpolated = a + (b - a) * t
-                row.append(interpolated)
-            result.append(row)
+    # ──────────────────────────────────────────────────────────────────────
+    @classmethod
+    def from_list(cls, data):
+        """
+        Creates a Matrix from a two-dimensional list.
 
-        return Matrix(result)
+        Args:
+            data (list of list of float): The matrix rows.
+
+        Returns:
+            Matrix: A new Matrix instance.
+        """
+        return cls(data)

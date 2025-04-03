@@ -42,48 +42,31 @@ class Vector:
         return "[" + ", ".join(str(x) for x in self.data) + "]"
 
     # ──────────────────────────────────────────────────────────────────────
-    # staticmethod decorator is used to define a method that does not operate on an instance of the class.
-    # e.g Vector.lerp(u, v, t) where u and v are not instances of the Vector class.
-    @staticmethod
-    def lerp(u, v, t: float):
-        """
-        Linearly interpolates between two vectors u and v with factor t.
 
-        Formula: result = u + (v - u) * t
+    def dot(self, other):
+            """
+            Computes the dot product of this vector with another vector.
 
-        Args:
-            u (Vector): Starting vector.
-            v (Vector): Ending vector.
-            t (float): Interpolation factor (0 ≤ t ≤ 1).
+            The dot product is computed as:
+                result = sum(self[i] * other[i] for i in range(n))
+            
+            Args:
+                other (Vector): The vector with which to compute the dot product.
 
-        Returns:
-            Vector: A new vector with interpolated coordinates.
+            Returns:
+                float: The dot product of the two vectors.
 
-        Raises:
-            ValueError: If t is not in [0,1] or if the vectors are of mismatched size.
+            Raises:
+                ValueError: If the two vectors have different sizes.
 
-        Examples:
-            >>> v1 = Vector.from_list([2., 1.])
-            >>> v2 = Vector.from_list([4., 2.])
-            >>> print(Vector.lerp(v1, v2, 0.3))
-            [2.6, 1.3]
-        """
-        if not (0.0 <= t <= 1.0):
-            raise ValueError("Interpolation factor t must be between 0 and 1")
-        u._validate_same_size(v)
-        new_data = [a + (b - a) * t for a, b in zip(u.data, v.data)]
-        return Vector(new_data)
-
-    # ──────────────────────────────────────────────────────────────────────
-    @classmethod
-    def from_list(cls, data):
-        """
-        Creates a Vector from a list of numbers.
-
-        Args:
-            data (list of float): The list of coordinates.
-
-        Returns:
-            Vector: A new Vector instance.
-        """
-        return cls(data)
+            Examples:
+                >>> u = Vector([1.0, 1.0])
+                >>> v = Vector([1.0, 1.0])
+                >>> print(u.dot(v))
+                2.0
+            """
+            self._validate_same_size(other)
+            result = 0.0
+            for a, b in zip(self.data, other.data):
+                result += a * b  # Here, one could use a fused multiply-add if available.
+            return result
