@@ -682,9 +682,44 @@ For vector $\mathbf{v} = [3, -4, 5]$:
     - **Regularization**: L1 norm (Lasso) promotes sparsity by forcing some weights to zero; L2 norm (Ridge) prevents overfitting by keeping weights small
     - **Loss Functions**: Using different norms to penalize errors differently:
         - **L1 Loss (Mean Absolute Error)**: More robust to outliers, creates sparse solutions
-            - Formula: $L1 = \sum_{i=1}^{n}|y_i - \hat{y}_i|$
-        - **L2 Loss (Mean Squared Error)**: Heavily penalizes large errors, has smooth gradients, computationally efficient
-            - Formula: $L2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2$
+            - **L1 Loss (Mean Absolute Error)**: More robust to outliers, creates sparse solutions
+                - Formula: $L1 = \sum_{i=1}^{n}|y_i - \hat{y}_i|$
+                            <details>
+                                <summary><b>Click to see L1 Loss Example</b></summary>
+                                <h3>L1 Loss (Mean Absolute Error) Example</h3>
+                                <p>Let's illustrate L1 loss with a simple example:</p>
+                                <p>Imagine you're building a model to predict house prices:</p>
+                                <pre>
+            Actual house prices (in $1000s): [200, 250, 300, 700]
+            Your model predicts: [210, 230, 320, 450]
+                                </pre>
+                                <p>The L1 loss calculation would be:</p>
+                                <pre>
+            L1 = |200-210| + |250-230| + |300-320| + |700-450|
+               = 10 + 20 + 20 + 250
+               = 300
+                                </pre>
+                    <p>Each error contributes exactly its absolute difference to the total loss. Note how the large error on the last house (250) doesn't dominate the calculation - it's just added linearly. In contrast, with L2 loss, that 250 error would be squared (62500), causing it to overwhelmingly dominate the total loss.</p>
+                    <p>This is why L1 loss is more robust to outliers - the last house might be an unusual mansion, but it won't cause your model to sacrifice accuracy on typical homes just to reduce that one large error.</p>
+                - **L2 Loss (Mean Squared Error)**: Heavily penalizes large errors, has smooth gradients, computationally efficient
+                    - Formula: $L2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2$
+                                <details>
+                                    <summary><b>Click to see L2 Loss Example</b></summary>
+                                    <h3>L2 Loss (Mean Squared Error) Example</h3>
+                                    <p>Let's illustrate L2 loss with the same house price prediction example:</p>
+                                    <pre>
+                Actual house prices (in $1000s): [200, 250, 300, 700]
+                Your model predicts: [210, 230, 320, 450]
+                                    </pre>
+                                    <p>The L2 loss calculation would be:</p>
+                                    <pre>
+                L2 = (200-210)² + (250-230)² + (300-320)² + (700-450)²
+                   = 100 + 400 + 400 + 62500
+                   = 63400
+                                    </pre>
+                                    <p>Notice how the last error (250) when squared becomes 62500, completely dominating the total loss. This single outlier accounts for over 98% of your total L2 loss!</p>
+                                    <p>This demonstrates why L2 loss is more sensitive to outliers - the model will prioritize reducing large errors even if it means making the predictions for other houses slightly worse. The benefit is that the L2 loss has smoother gradients (helpful for optimization algorithms) and often leads to models with better overall accuracy when outliers aren't a concern.</p>
+                                </details>
     - **Feature Normalization**: Scaling features using specific norms:
         - **L2 normalization**: Ensures all samples have unit Euclidean length, preserves direction
         - **L1 normalization**: Creates sparse representations, useful when dealing with high-dimensional data 
