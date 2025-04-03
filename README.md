@@ -28,6 +28,10 @@
     - [Matrix Operations: Addition and Subtraction](#matrix-operations-addition-and-subtraction)
 9. [Ex 01](#ex-01)
     - [What's a Linear Combination?](#whats-a-linear-combination)
+10. [Ex 02](#ex-02)
+    - [Linear Interpolation](#linear-interpolation)
+11. [Ex 03](#ex-03)
+    - [The Dot Product](#the-dot-product)
 
 ---
 
