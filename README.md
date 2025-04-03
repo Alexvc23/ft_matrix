@@ -619,3 +619,72 @@ Where:
 - Both vectors must have the same dimension
 - The operation has linear time complexity O(n), where n is the dimension of the vectors
 - Handle edge cases like zero vectors appropriately
+# Ex 04
+
+## Norm (Vector Length)
+
+The norm of a vector, also called magnitude or length, measures the "size" of a vector. There are several types of norms, each with specific applications.
+
+### Types of Norms
+
+#### L1 Norm (Manhattan Norm)
+
+The L1 norm sums the absolute values of the vector components:
+
+$$
+||\mathbf{v}||_1 = |v_1| + |v_2| + ... + |v_n| = \sum_{i=1}^{n} |v_i|
+$$
+
+#### L2 Norm (Euclidean Norm)
+
+The L2 norm is the most common and represents the straight-line distance:
+
+$$
+||\mathbf{v}||_2 = \sqrt{v_1^2 + v_2^2 + ... + v_n^2} = \sqrt{\sum_{i=1}^{n} v_i^2}
+$$
+
+This is equivalent to $\sqrt{\mathbf{v} \cdot \mathbf{v}}$
+
+#### Infinity Norm (Max Norm)
+
+The infinity norm takes the largest absolute value among components:
+
+$$
+||\mathbf{v}||_{\infty} = \max(|v_1|, |v_2|, ..., |v_n|)
+$$
+
+### Example Calculations
+
+For vector $\mathbf{v} = [3, -4, 5]$:
+
+- **L1 Norm**: $||\mathbf{v}||_1 = |3| + |-4| + |5| = 3 + 4 + 5 = 12$
+- **L2 Norm**: $||\mathbf{v}||_2 = \sqrt{3^2 + (-4)^2 + 5^2} = \sqrt{9 + 16 + 25} = \sqrt{50} \approx 7.07$
+- **Infinity Norm**: $||\mathbf{v}||_{\infty} = \max(|3|, |-4|, |5|) = 5$
+
+### Visual Representation
+
+<details>
+    <summary><b>Click to view Vector Norms Comparison</b></summary>
+    <img src="./assets/vector_norms.png" alt="Different Vector Norms" width="50%" height="50%" />
+    <p><i>Different norms measure vector length in different ways. The colored shapes show unit circles in each norm.</i></p>
+</details>
+
+### Properties
+
+- **Non-negativity**: $||\mathbf{v}|| \geq 0$ for any vector $\mathbf{v}$
+- **Zero Vector**: $||\mathbf{v}|| = 0$ if and only if $\mathbf{v} = \mathbf{0}$
+- **Scalar Multiplication**: $||a\mathbf{v}|| = |a| \times ||\mathbf{v}||$
+- **Triangle Inequality**: $||\mathbf{u} + \mathbf{v}|| \leq ||\mathbf{u}|| + ||\mathbf{v}||$
+
+### Applications
+
+- **Machine Learning**: Feature normalization and regularization
+- **Computer Graphics**: Normalizing vectors for lighting calculations
+- **Signal Processing**: Measuring signal strength
+- **Optimization**: Defining objective functions and constraints
+
+### Implementation Notes
+
+- For the L2 norm, be careful about numerical overflow with large values
+- The choice of norm depends on the application context
+- Time complexity is O(n) for all norm calculations, where n is the vector dimension
