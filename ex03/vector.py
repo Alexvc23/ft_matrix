@@ -67,6 +67,9 @@ class Vector:
             """
             self._validate_same_size(other)
             result = 0.0
+            # zip pairs the elements of self.data and other.data together
+            # e.g if self.data = [1, 2] and other.data = [3, 4], 
+            # then zip(self.data, other.data) = [(1, 3), (2, 4)]
             for a, b in zip(self.data, other.data):
                 result += a * b  # Here, one could use a fused multiply-add if available.
             return result
