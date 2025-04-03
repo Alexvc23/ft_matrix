@@ -678,7 +678,12 @@ For vector $\mathbf{v} = [3, -4, 5]$:
 
 ### Applications
 
-- **Machine Learning**: Feature normalization and regularization
+- **Machine Learning**: Norms play crucial roles in:
+    - **Regularization**: L1 norm (Lasso) promotes sparsity by forcing some weights to zero; L2 norm (Ridge) prevents overfitting by keeping weights small
+    - **Loss Functions**: Using different norms to penalize errors differently (L1 for outlier resistance, L2 for smooth gradients)
+    - **Feature Normalization**: Scaling features to prevent those with larger magnitudes from dominating the learning process
+    - **Gradient-Based Learning**: Computing gradient norms to monitor convergence in optimization algorithms
+    - **Support Vector Machines**: Using norms to define decision boundaries and margins
 - **Computer Graphics**: Normalizing vectors for lighting calculations
 - **Signal Processing**: Measuring signal strength
 - **Optimization**: Defining objective functions and constraints
