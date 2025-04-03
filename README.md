@@ -680,6 +680,7 @@ For vector $\mathbf{v} = [3, -4, 5]$:
 
 - **Machine Learning**: Norms play crucial roles in:
     - **Regularization**: L1 norm (Lasso) promotes sparsity by forcing some weights to zero; L2 norm (Ridge) prevents overfitting by keeping weights small
+    ---
     - **L1 Loss (Mean Absolute Error)**: More robust to outliers, creates sparse solutions
         - Formula: $L1 = \sum_{i=1}^{n}|y_i - \hat{y}_i|$
                     <details>
@@ -718,11 +719,49 @@ For vector $\mathbf{v} = [3, -4, 5]$:
                         <p>Notice how the last error (250) when squared becomes 62500, completely dominating the total loss. This single outlier accounts for over 98% of your total L2 loss!</p>
                         <p>This demonstrates why L2 loss is more sensitive to outliers - the model will prioritize reducing large errors even if it means making the predictions for other houses slightly worse. The benefit is that the L2 loss has smoother gradients (helpful for optimization algorithms) and often leads to models with better overall accuracy when outliers aren't a concern.</p>
                     </details>
+    ---
     - **Feature Normalization**: Scaling features using specific norms:
         - **L2 normalization**: Ensures all samples have unit Euclidean length, preserves direction
-        - **L1 normalization**: Creates sparse representations, useful when dealing with high-dimensional data 
-          - e.g., text data in NLP tasks where NLP(Natural Language Processing) often uses L1 normalization to create sparse feature vectors (sparse features are those with many zero values) for text data, making it easier to handle high-dimensional data efficiently.
-          e.g., in image processing, L1 normalization can be used to create sparse representations of images, where only a few pixels are non-zero, making it easier to analyze and process the data.
+
+            <details>
+            <summary><b>Click to see L2 Normalization Example</b></summary>
+            <h3>L2 Normalization Explained</h3>
+            <p>L2 normalization (also called Euclidean normalization) is a technique that scales each sample vector so that its L2 norm (Euclidean length) equals 1.</p>
+            
+            <h4>What it does</h4>
+            <p>L2 normalization transforms a vector <code>x</code> into a unit vector that points in the same direction:</p>
+            
+            <pre>x_normalized = x / ||x||₂</pre>
+            
+            <p>Where <code>||x||₂</code> is the L2-norm (Euclidean norm) calculated as:</p>
+            
+            <pre>||x||₂ = sqrt(x₁² + x₂² + ... + xₙ²)</pre>
+            
+            <h4>Key properties</h4>
+            <ol>
+            <li><strong>Preserves direction</strong>: The normalized vector points in the same direction as the original vector</li>
+            <li><strong>Unit length</strong>: All normalized vectors have a length of 1</li>
+            <li><strong>Scale invariance</strong>: Only the direction of the data matters, not its magnitude</li>
+            <li><strong>Removes magnitude differences</strong>: Helpful when features have different scales</li>
+            </ol>
+            
+            <h4>When to use it</h4>
+            <ul>
+            <li><strong>Text analysis</strong>: In TF-IDF vectors to focus on relative word importance</li>
+            <li><strong>Image processing</strong>: When comparing image features</li>
+            <li><strong>Machine learning</strong>: When you want algorithms to focus on the direction of data points rather than their magnitude</li>
+            <li><strong>Similarity measures</strong>: Particularly for cosine similarity calculations</li>
+            </ul>
+            
+            <h4>Example</h4>
+                <pre>
+                    # Original vector: [4, 3]
+                    # L2 norm = sqrt(4² + 3²) = sqrt(16 + 9) = sqrt(25) = 5
+                    # Normalized vector = [4/5, 3/5] = [0.8, 0.6]
+                </pre>
+            <p>After normalization, all vectors will lie on the unit sphere, making them suitable for algorithms that rely on directional relationships.</p>
+            </details>
+    ---
     - **Gradient-Based Learning**: Computing gradient norms to monitor convergence in optimization algorithms
 - **Optimization**: Defining objective functions and constraints
 
