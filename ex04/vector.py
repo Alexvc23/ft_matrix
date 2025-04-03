@@ -1,3 +1,6 @@
+# Imports 
+import math # import math module for mathematical operations
+
 class Vector:
     """
     A class representing a mathematical vector with support for linear interpolation.
@@ -47,35 +50,41 @@ class Vector:
         """
         Create a Vector instance from a list of numbers.
         """
-        return cls(data) 
-    # ──────────────────────────────────────────────────────────────────────────────
-    def dot(self, other):
-            """
-            Computes the dot product of this vector with another vector.
-
-            The dot product is computed as:
-                result = sum(self[i] * other[i] for i in range(n))
+        return cls(data)
+    # ──────────────────────────────────────────────────────
+    def norm_1(self) -> float:
+        """
+        Compute the 1-norm (Manhattan norm) of the vector.
+        
+        Returns:
+            float: Sum of the absolute values of the coordinates.
             
-            Args:
-                other (Vector): The vector with which to compute the dot product.
-
-            Returns:
-                float: The dot product of the two vectors.
-
-            Raises:
-                ValueError: If the two vectors have different sizes.
-
-            Examples:
-                >>> u = Vector([1.0, 1.0])
-                >>> v = Vector([1.0, 1.0])
-                >>> print(u.dot(v))
-                2.0
+        Example:
+            For [1., 2., 3.], 1-norm = 6.0.
+        """
+        return sum(abs(x) for x in self.data)
+    # ──────────────────────────────────────────────────────────────
+    def norm(self) -> float:
             """
-            self._validate_same_size(other)
-            result = 0.0
-            # zip pairs the elements of self.data and other.data together
-            # e.g if self.data = [1, 2] and other.data = [3, 4], 
-            # then zip(self.data, other.data) = [(1, 3), (2, 4)]
-            for a, b in zip(self.data, other.data):
-                result += a * b  # Here, one could use a fused multiply-add if available.
-            return result
+            Compute the 2-norm (Euclidean norm) of the vector.
+            
+            Returns:
+                float: The square root of the sum of the squares of the coordinates.
+                
+            Example:
+                For [1., 2., 3.], 2-norm ≈ 3.74165738.
+            """
+            return math.sqrt(sum(x * x for x in self.data))
+
+    # ──────────────────────────────────────────────────────────────────────
+    def norm_inf(self) -> float:
+        """
+        Compute the infinity norm (maximum norm) of the vector.
+        
+        Returns:
+            float: The maximum absolute value among the coordinates.
+            
+        Example:
+            For [1., 2., 3.], infinity norm = 3.0.
+        """
+        return max(abs(x) for x in self.data)
