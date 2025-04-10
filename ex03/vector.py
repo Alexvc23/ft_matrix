@@ -50,32 +50,32 @@ class Vector:
         return cls(data) 
     # ──────────────────────────────────────────────────────────────────────────────
     def dot(self, other):
-            """
-            Computes the dot product of this vector with another vector.
+        """
+        Computes the dot product of this vector with another vector.
 
-            The dot product is computed as:
-                result = sum(self[i] * other[i] for i in range(n))
-            
-            Args:
-                other (Vector): The vector with which to compute the dot product.
+        The dot product is computed as:
+            result = sum(self[i] * other[i] for i in range(n))
+        
+        Args:
+            other (Vector): The vector with which to compute the dot product.
 
-            Returns:
-                float: The dot product of the two vectors.
+        Returns:
+            float: The dot product of the two vectors.
 
-            Raises:
-                ValueError: If the two vectors have different sizes.
+        Raises:
+            ValueError: If the two vectors have different sizes.
 
-            Examples:
-                >>> u = Vector([1.0, 1.0])
-                >>> v = Vector([1.0, 1.0])
-                >>> print(u.dot(v))
-                2.0
-            """
-            self._validate_same_size(other)
-            result = 0.0
-            # zip pairs the elements of self.data and other.data together
-            # e.g if self.data = [1, 2] and other.data = [3, 4], 
-            # then zip(self.data, other.data) = [(1, 3), (2, 4)]
-            for a, b in zip(self.data, other.data):
-                result += a * b  # Here, one could use a fused multiply-add if available.
-            return result
+        Examples:
+            >>> u = Vector([1.0, 1.0])
+            >>> v = Vector([1.0, 1.0])
+            >>> print(u.dot(v))
+            2.0
+        """
+        self._validate_same_size(other)
+        result = 0.0
+        # zip pairs the elements of self.data and other.data together
+        # e.g if self.data = [1, 2] and other.data = [3, 4], 
+        # then zip(self.data, other.data) = [(1, 3), (2, 4)]
+        for a, b in zip(self.data, other.data):
+            result += a * b  # Here, one could use a fused multiply-add if available.
+        return result
