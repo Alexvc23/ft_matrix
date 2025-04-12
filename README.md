@@ -619,6 +619,7 @@ Where:
 - Both vectors must have the same dimension
 - The operation has linear time complexity O(n), where n is the dimension of the vectors
 - Handle edge cases like zero vectors appropriately
+
 # Ex 04
 
 ## Norm (Vector Length)
@@ -770,3 +771,73 @@ For vector $\mathbf{v} = [3, -4, 5]$:
 - For the L2 norm, be careful about numerical overflow with large values
 - The choice of norm depends on the application context
 - Time complexity is O(n) for all norm calculations, where n is the vector dimension
+
+# Ex 05
+
+## Cosine Similarity
+
+Cosine similarity measures the cosine of the angle between two non-zero vectors in an inner product space. It is often used to measure document similarity in text analysis.
+
+### Definition
+
+The cosine similarity between two vectors $\mathbf{u}$ and $\mathbf{v}$ is calculated using their dot product and magnitudes:
+
+$$
+\text{Cosine Similarity}(\mathbf{u}, \mathbf{v}) = \cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{||\mathbf{u}|| \times ||\mathbf{v}||}
+$$
+
+Where:
+- $\mathbf{u} \cdot \mathbf{v}$ is the dot product of vectors $\mathbf{u}$ and $\mathbf{v}$.
+- $||\mathbf{u}||$ and $||\mathbf{v}||$ are the L2 norms (magnitudes) of vectors $\mathbf{u}$ and $\mathbf{v}$.
+- $\theta$ is the angle between the two vectors.
+
+### Interpretation
+
+The value of cosine similarity ranges from -1 to 1:
+- **1**: The vectors point in the exact same direction (angle is 0°). They are maximally similar.
+- **0**: The vectors are orthogonal (perpendicular, angle is 90°). They have no similarity in terms of direction.
+- **-1**: The vectors point in opposite directions (angle is 180°). They are maximally dissimilar.
+
+Cosine similarity focuses on the orientation (direction) of the vectors, not their magnitude.
+
+### Example Calculation
+
+Let $\mathbf{u} = [2, 1]$ and $\mathbf{v} = [3, 4]$.
+
+1.  **Calculate the dot product**:
+    $$
+    \mathbf{u} \cdot \mathbf{v} = (2 \times 3) + (1 \times 4) = 6 + 4 = 10
+    $$
+2.  **Calculate the magnitudes**:
+    $$
+    ||\mathbf{u}|| = \sqrt{2^2 + 1^2} = \sqrt{4 + 1} = \sqrt{5}
+    $$
+    $$
+    ||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+    $$
+3.  **Calculate the cosine similarity**:
+    $$
+    \cos(\theta) = \frac{10}{\sqrt{5} \times 5} = \frac{10}{5\sqrt{5}} = \frac{2}{\sqrt{5}} = \frac{2\sqrt{5}}{5} \approx 0.894
+    $$
+The cosine similarity is approximately 0.894, indicating that the vectors point in roughly the same direction.
+
+### Visual Representation
+
+<details>
+    <summary><b>Click to view Cosine Similarity Visualization</b></summary>
+    <img src="./assets/cosine_similarity.png" alt="Cosine Similarity" width="60%" height="60%" />
+    <p><i>Cosine similarity measures the angle θ between two vectors. Vectors pointing in similar directions have a cosine similarity close to 1. Orthogonal vectors have a similarity of 0. Vectors pointing in opposite directions have a similarity close to -1.</i></p>
+</details>
+
+### Applications
+
+- **Text Analysis / Natural Language Processing (NLP)**: Measuring similarity between documents represented as vectors (e.g., TF-IDF vectors). Documents with similar content tend to have vectors pointing in similar directions.
+- **Recommendation Systems**: Finding users or items with similar preferences based on their vector representations.
+- **Information Retrieval**: Ranking documents based on their similarity to a query vector.
+- **Bioinformatics**: Comparing gene expression data.
+
+### Implementation Considerations
+
+- Both vectors must have the same dimension.
+- Handle the case where one or both vectors are zero vectors (magnitude is zero), which would lead to division by zero. Cosine similarity is typically undefined or considered 0 in this case, depending on the context.
+- The complexity is dominated by the dot product and norm calculations, typically O(n) where n is the vector dimension.
