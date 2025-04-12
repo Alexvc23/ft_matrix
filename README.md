@@ -776,7 +776,14 @@ For vector $\mathbf{v} = [3, -4, 5]$:
 
 ## Cosine Similarity
 
-Cosine similarity measures the cosine of the angle between two non-zero vectors in an inner product space. It is often used to measure document similarity in text analysis.
+
+### In Simple Terms
+
+<span style="color:red">**The goal of cosine similarity** </span>is to determine if two items are pointing in the same direction, regardless of their magnitude. It helps answer: "Are these two items similar in their orientation?" - like checking if two people have similar preferences even if one rates everything more intensely than the other.
+
+### Definition
+
+Cosine similarity measures the cosine of the angle between two non-zero vectors in an inner product space.
 
 ### Definition
 
