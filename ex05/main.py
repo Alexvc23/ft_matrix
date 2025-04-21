@@ -1,4 +1,4 @@
-from vector import Vector
+from vector.vector import Vector
 
 def main():
     print("=== Exercise 05: Cosine of the Angle Between Vectors ===\n")

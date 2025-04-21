@@ -1,6 +1,6 @@
 import pytest
 
-from .vector import Vector
+from vector.vector import Vector
 
 def test_angle_cos_parallel():
     # Two identical vectors: cosine should be 1.0.

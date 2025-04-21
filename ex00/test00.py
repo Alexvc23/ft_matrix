@@ -1,6 +1,7 @@
 import pytest
-from .vector import Vector
-from .matrix import Matrix
+
+from vector.vector import Vector
+from matrix.matrix import Matrix
 
 # ANSI color codes for convenience
 class ANSI:

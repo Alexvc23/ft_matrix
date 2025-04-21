@@ -1,5 +1,5 @@
 import pytest
-from .vector import Vector
+from vector.vector import Vector
 
 # ANSI color codes for convenience
 class ANSI:

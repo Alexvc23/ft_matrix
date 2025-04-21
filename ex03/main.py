@@ -1,4 +1,4 @@
-from vector import Vector
+from vector.vector import Vector
 
 def main():
     print("Exercise 03 – Dot Product Examples\n")
