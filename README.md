@@ -986,19 +986,30 @@ For matrix multiplication to be defined, the matrices must have compatible dimen
 - If this condition isn't met, the multiplication is undefined
 - The resulting matrix will have the same number of rows as the first matrix and the same number of columns as the second matrix
 
+**Matrix-Vector Multiplication:**
+
+When multiplying a matrix by a vector:
+- A vector can be treated as an $n \times 1$ matrix (a column vector)
+- If matrix $A$ is of size $m \times n$ and vector $\mathbf{v}$ is of size $n \times 1$
+- Then the product $A\mathbf{v}$ is defined and will be a vector of size $m \times 1$
+- Each element of the resulting vector is the dot product of a row from $A$ with the vector $\mathbf{v}$
+
 **Visual representation of compatible dimensions:**
 
 ```
 A (m×n) × B (n×p) = C (m×p)
+A (m×n) × v (n×1) = w (m×1)
 ```
 
 **Example of compatible matrices:**
 - A 3×5 matrix can be multiplied by a 5×2 matrix, resulting in a 3×2 matrix
 - A 2×2 matrix can be multiplied by a 2×3 matrix, resulting in a 2×3 matrix
+- A 4×3 matrix can be multiplied by a 3×1 vector, resulting in a 4×1 vector
 
 **Example of incompatible matrices:**
 - A 2×3 matrix cannot be multiplied by a 2×2 matrix (3 ≠ 2)
 - A 4×1 matrix cannot be multiplied by a 3×5 matrix (1 ≠ 3)
+- A 2×3 matrix cannot be multiplied by a 4×1 vector (3 ≠ 4)
 
 ### Formula
 
@@ -1028,6 +1039,22 @@ The product $C = AB$ will be a 2x2 matrix.
 So, the resulting matrix is:
 $$
 C = AB = \begin{pmatrix} 19 & 22 \\ 43 & 50 \end{pmatrix}
+$$
+
+### Matrix-Vector Example
+
+Let $M = \begin{pmatrix} 2 & 3 & 4 \\ 1 & 0 & 5 \end{pmatrix}$ (a 2x3 matrix) and $\mathbf{v} = \begin{pmatrix} 6 \\ 7 \\ 8 \end{pmatrix}$ (a 3x1 vector).
+
+The product $M\mathbf{v}$ will be a 2x1 vector.
+
+-   **First element**: (Row 1 of M) $\cdot$ $\mathbf{v}$
+    $$ (M\mathbf{v})_1 = (2 \times 6) + (3 \times 7) + (4 \times 8) = 12 + 21 + 32 = 65 $$
+-   **Second element**: (Row 2 of M) $\cdot$ $\mathbf{v}$
+    $$ (M\mathbf{v})_2 = (1 \times 6) + (0 \times 7) + (5 \times 8) = 6 + 0 + 40 = 46 $$
+
+So, the resulting vector is:
+$$
+M\mathbf{v} = \begin{pmatrix} 65 \\ 46 \end{pmatrix}
 $$
 
 
