@@ -1,424 +1,329 @@
-# Imports
-import math
-from typing import List, Union, Sequence, TypeVar
-
-T = TypeVar('T', bound='Vector') # Type variable for methods returning instances of the class
+# Imports 
+from typing import List
+import math # import math module for mathematical operations
 
 class Vector:
     """
-    A class representing a mathematical vector with support for common vector operations.
-
-    Attributes:
-        data (List[float]): The coordinates of the vector.
+    A class representing a mathematical vector with support for linear interpolation.
     """
 
     # ──────────────────────────────────────────────────────────────────────
     # Constructor
-    def __init__(self, data: Sequence[Union[float, int]]):
+    def __init__(self, data: List[float]):
         """
-        Initialize the vector with a sequence of numbers.
-
+        Initialize the vector with a list of numbers.
+        
         Args:
-            data: A sequence (e.g., list, tuple) of numbers (int or float).
-
-        Raises:
-            TypeError: If data is not a sequence or contains non-numeric types.
-            ValueError: If data is empty.
+            data (list of float): The list representing the vector coordinates.
         """
-        if not isinstance(data, Sequence):
-            raise TypeError("Input data must be a sequence (e.g., list, tuple).")
-        if not data:
-            raise ValueError("Input data cannot be empty.")
-        try:
-            # Store data as a list of floats, defensively copy the input
-            self.data: List[float] = [float(x) for x in data]
-        except (ValueError, TypeError) as e:
-            raise TypeError("All elements in data must be numeric.") from e
+        self.data = data
 
-    # ──────────────────────────────────────────────────────────────────────
-    # Validation
-    def _validate_same_size(self, other: T):
+    # ──────────────────────────────────────────────────────────────────────`
+    def _validate_same_size(self, other):
         """
-        Validates that this vector and another vector have the same size.
-
+        Validates that this vector and another vector have the same non-empty size.
+        
         Args:
-            other: The other vector to compare against.
-
+            other (Vector): The other vector to compare against.
+        
         Raises:
-            ValueError: If the vectors have different sizes.
+            ValueError: If either vector is empty or if their sizes differ.
         """
+        if not self.data or not other.data:
+            raise ValueError("Vectors cannot be empty")
         if len(self.data) != len(other.data):
-            raise ValueError(f"Vectors must have the same size ({len(self.data)} != {len(other.data)})")
-
-    def _validate_dimension(self, expected_dim: int):
-        """
-        Validates that the vector has the expected dimension.
-
-        Args:
-            expected_dim: The dimension the vector must have.
-
-        Raises:
-            ValueError: If the vector does not have the expected dimension.
-        """
-        if len(self.data) != expected_dim:
-            raise ValueError(f"Vector must be {expected_dim}-dimensional (current dimension: {len(self.data)})")
+            raise ValueError("Vectors must have the same size")
 
     # ──────────────────────────────────────────────────────────────────────
-    # Dunder Methods
-    def __repr__(self) -> str:
-        """Returns a developer-friendly string representation of the vector."""
-        return f"Vector({self.data})"
+    # Dunder methods for basic operations and representation
 
-    def __str__(self) -> str:
-        """Returns a user-friendly string representation of the vector."""
-        return "[" + ", ".join(f"{x:.2f}" for x in self.data) + "]"
-
-    def __len__(self) -> int:
-        """Returns the number of elements (dimension) of the vector."""
+    def __len__(self):
+        """
+        Return the number of elements in the vector.
+        """
         return len(self.data)
 
-    def __getitem__(self, index: int) -> float:
-        """Allows accessing vector elements using index notation (e.g., v[0])."""
-        return self.data[index]
-
-    def __add__(self: T, other: T) -> T:
+    def __getitem__(self, idx):
         """
-        Adds two vectors element-wise, returning a new Vector. (v1 + v2)
-
-        Args:
-            other: The vector to add.
-
-        Returns:
-            A new Vector representing the sum.
-
-        Raises:
-            ValueError: If vectors have different sizes.
+        Get the element at the specified index.
         """
-        self._validate_same_size(other)
-        new_data = [a + b for a, b in zip(self.data, other.data)]
-        return self.__class__(new_data) # Use self.__class__ to support potential subclassing
+        return self.data[idx]
 
-    def __iadd__(self: T, other: T) -> T:
+    def __repr__(self):
         """
-        Adds another vector to this vector in-place. (v1 += v2)
-
-        Args:
-            other: The vector to add.
-
-        Returns:
-            The modified vector (self).
-
-        Raises:
-            ValueError: If vectors have different sizes.
+        Return the string representation of the vector.
+        e.g print(Vector([1, 2, 3])) will print: Vector([1, 2, 3])
         """
-        self._validate_same_size(other)
-        for i in range(len(self.data)):
-            self.data[i] += other.data[i]
-        return self
-
-    def __sub__(self: T, other: T) -> T:
-        """
-        Subtracts two vectors element-wise, returning a new Vector. (v1 - v2)
-
-        Args:
-            other: The vector to subtract.
-
-        Returns:
-            A new Vector representing the difference.
-
-        Raises:
-            ValueError: If vectors have different sizes.
-        """
-        self._validate_same_size(other)
-        new_data = [a - b for a, b in zip(self.data, other.data)]
-        return self.__class__(new_data)
-
-    def __isub__(self: T, other: T) -> T:
-        """
-        Subtracts another vector from this vector in-place. (v1 -= v2)
-
-        Args:
-            other: The vector to subtract.
-
-        Returns:
-            The modified vector (self).
-
-        Raises:
-            ValueError: If vectors have different sizes.
-        """
-        self._validate_same_size(other)
-        for i in range(len(self.data)):
-            self.data[i] -= other.data[i]
-        return self
-
-    def __mul__(self: T, scalar: Union[float, int]) -> T:
-        """
-        Multiplies the vector by a scalar, returning a new Vector. (v * scalar)
-
-        Args:
-            scalar: The scalar value.
-
-        Returns:
-            A new Vector representing the scaled vector.
-
-        Raises:
-            TypeError: If scalar is not a number.
-        """
-        if not isinstance(scalar, (int, float)):
-            raise TypeError("Scalar must be a number (int or float).")
-        new_data = [x * scalar for x in self.data]
-        return self.__class__(new_data)
-
-    def __rmul__(self: T, scalar: Union[float, int]) -> T:
-        """
-        Allows scalar multiplication from the left. (scalar * v)
-
-        Args:
-            scalar: The scalar value.
-
-        Returns:
-            A new Vector representing the scaled vector.
-
-        Raises:
-            TypeError: If scalar is not a number.
-        """
-        return self.__mul__(scalar) # Multiplication is commutative
-
-    def __imul__(self: T, scalar: Union[float, int]) -> T:
-        """
-        Multiplies this vector by a scalar in-place. (v *= scalar)
-
-        Args:
-            scalar: The scalar value.
-
-        Returns:
-            The modified vector (self).
-
-        Raises:
-            TypeError: If scalar is not a number.
-        """
-        if not isinstance(scalar, (int, float)):
-            raise TypeError("Scalar must be a number (int or float).")
-        for i in range(len(self.data)):
-            self.data[i] *= scalar
-        return self
-
-    def __truediv__(self: T, scalar: Union[float, int]) -> T:
-        """
-        Divides the vector by a scalar, returning a new Vector. (v / scalar)
-
-        Args:
-            scalar: The scalar value.
-
-        Returns:
-            A new Vector representing the scaled vector.
-
-        Raises:
-            TypeError: If scalar is not a number.
-            ValueError: If scalar is zero.
-        """
-        if not isinstance(scalar, (int, float)):
-            raise TypeError("Scalar must be a number (int or float).")
-        if scalar == 0:
-            raise ValueError("Division by zero is not allowed.")
-        new_data = [x / scalar for x in self.data]
-        return self.__class__(new_data)
-
-    def __itruediv__(self: T, scalar: Union[float, int]) -> T:
-        """
-        Divides this vector by a scalar in-place. (v /= scalar)
-
-        Args:
-            scalar: The scalar value.
-
-        Returns:
-            The modified vector (self).
-
-        Raises:
-            TypeError: If scalar is not a number.
-            ValueError: If scalar is zero.
-        """
-        if not isinstance(scalar, (int, float)):
-            raise TypeError("Scalar must be a number (int or float).")
-        if scalar == 0:
-            raise ValueError("Division by zero is not allowed.")
-        for i in range(len(self.data)):
-            self.data[i] /= scalar
-        return self
+        return f"Vector({self.data})"
 
     # ──────────────────────────────────────────────────────────────────────
-    # Class and Static Methods
-    @classmethod
-    def from_list(cls: type[T], data: Sequence[Union[float, int]]) -> T:
-        """
-        Creates a Vector from a list or sequence of numbers.
-
-        Args:
-            data: The sequence of coordinates.
-
-        Returns:
-            A new Vector instance.
-        """
-        return cls(data)
-
+    # class method are used to create instances of the class in different ways.
+    # for example, from a list of numbers.
+    # this is useful for creating vectors from different data sources.
+    # staticmethod decorator is used to define a method that does not operate on an instance of the class.
+    # e.g Vector.lerp(u, v, t) where u and v are not instances of the Vector class.
     @staticmethod
-    def lerp(u: T, v: T, t: float) -> T:
+    def lerp(u, v, t: float):
         """
         Linearly interpolates between two vectors u and v with factor t.
 
-        Formula: result = u + (v - u) * t = u * (1 - t) + v * t
+        Formula: result = u + (v - u) * t
 
         Args:
-            u: Starting vector.
-            v: Ending vector.
-            t: Interpolation factor (usually between 0 and 1).
+            u (Vector): Starting vector.
+            v (Vector): Ending vector.
+            t (float): Interpolation factor (0 ≤ t ≤ 1).
 
         Returns:
-            A new vector with interpolated coordinates.
+            Vector: A new vector with interpolated coordinates.
 
         Raises:
             ValueError: If t is not in [0,1] or if the vectors are of mismatched size.
+
+        Examples:
+            >>> v1 = Vector.from_list([2., 1.])
+            >>> v2 = Vector.from_list([4., 2.])
+            >>> print(Vector.lerp(v1, v2, 0.3))
+            Vector([2.6, 1.3])
         """
         if not (0.0 <= t <= 1.0):
-            # Warning instead of error might be preferable depending on use case
-            # raise ValueError("Interpolation factor t should be between 0 and 1")
-            pass # Allow extrapolation if needed, user beware
+            raise ValueError("Interpolation factor t must be between 0 and 1")
         u._validate_same_size(v)
-        # Use the more numerically stable formula: u * (1 - t) + v * t
-        new_data = [a * (1 - t) + b * t for a, b in zip(u.data, v.data)]
-        # Alternative formula: a + (b - a) * t
-        # new_data = [a + (b - a) * t for a, b in zip(u.data, v.data)]
-        return u.__class__(new_data) # Use __class__ to return correct type
+        new_data = [a + (b - a) * t for a, b in zip(u.data, v.data)]
+        return Vector(new_data)
 
-    @staticmethod
-    def linear_combination(vectors: Sequence[T], scalars: Sequence[float]) -> T:
+    # ──────────────────────────────────────────────────────────────────────
+    @classmethod
+    def from_list(cls, data):
         """
-        Computes the linear combination of vectors with corresponding scalars.
-
-        Result = scalar₁*v₁ + scalar₂*v₂ + ... + scalarₙ*vₙ
+        Creates a Vector from a list of numbers.
 
         Args:
-            vectors: A sequence of Vector objects.
-            scalars: A sequence of scalar values.
+            data (list of float): The list of coordinates.
 
         Returns:
-            The resulting Vector from the linear combination.
+            Vector: A new Vector instance.
+        """
+        return cls(data)
+    # ──────────────────────────────────────────────────────────────────────
+    def add(self, other):
+        """
+        Add another vector to this vector in-place.
+
+        This method performs element-wise addition with another vector and modifies the current vector.
+
+        Args:
+            other (Vector): The vector to add to this vector. Must have the same dimensions.
 
         Raises:
-            ValueError: If lists are empty, counts mismatch, or vectors have different lengths.
-            TypeError: If vectors is not a sequence of Vector objects.
+            ValueError: If the vectors have different dimensions.
+
+        Example:
+            >>> v1 = Vector([1, 2, 3])
+            >>> v2 = Vector([4, 5, 6])
+            >>> v1.add(v2)
+            >>> v1.data
+            [5, 7, 9]
         """
+        # Validate sizes before addition
+        self._validate_same_size(other)
+        # Add the corresponding elements of the two vectors
+        for i in range(len(self.data)):
+            self.data[i] += other.data[i]
+
+    # ──────────────────────────────────────────────────────────────────────
+    def sub(self, other):
+        """
+        Subtracts another vector from the current vector in-place.
+
+        This method performs element-wise subtraction of the elements of 'other'
+        from the corresponding elements of this vector, modifying the current vector.
+
+        Parameters:
+        ----------
+        other : Vector
+            The vector to subtract from this vector. Must have the same dimensions.
+
+        Returns:
+        -------
+        None
+            The method modifies the current vector in-place.
+
+        Raises:
+        ------
+        ValueError
+            If the vectors have different dimensions.
+        """
+        # Validate sizes before subtraction
+        self._validate_same_size(other)
+        # Subtract the corresponding elements of the two vectors
+        for i in range(len(self.data)):
+            self.data[i] -= other.data[i]
+
+    # ──────────────────────────────────────────────────────────────────────
+    def scl(self, scalar):
+        """
+        Multiply each element of the vector by a scalar.
+
+        Args:
+            scalar (int or float): The value by which to multiply each element of the vector.
+
+        Returns:
+            None: The vector is modified in-place.
+
+        Example:
+            >>> v = Vector([1, 2, 3])
+            >>> v.scl(2)
+            >>> v.data
+            [2, 4, 6]
+        """
+        # Multiply each element of the vector by the scalar
+        for i in range(len(self.data)):
+            self.data[i] *= scalar
+
+    # ──────────────────────────────────────────────────────────────────────
+    @staticmethod
+    def linear_combination(vectors: List['Vector'], scalars: List[float]) -> 'Vector':
+        """
+        Computes the linear combination of vectors with their corresponding scalars.
+        Linear combination is the sum of each vector multiplied by its scalar:
+        result = a₁v₁ + a₂v₂ + ... + aₙvₙ
+        where aᵢ are scalars and vᵢ are vectors.
+        Args:
+            vectors (List[Vector]): A list of Vector objects.
+            scalars (List[float]): A list of scalars to multiply with each vector.
+        Returns:
+            Vector: The resulting vector from the linear combination.
+        Raises:
+            ValueError: If the number of vectors doesn't match the number of scalars,
+                       if vectors have different lengths, or if lists are empty.
+        """
+
         if not vectors or not scalars:
-            raise ValueError("Vectors and scalars sequences cannot be empty.")
+            raise ValueError("Vectors and scalars lists cannot be empty")
+
         if len(vectors) != len(scalars):
-            raise ValueError("Number of vectors must match number of scalars.")
-        if not all(isinstance(v, Vector) for v in vectors):
-             raise TypeError("All items in 'vectors' must be Vector instances.")
+            raise ValueError("The number of vectors must match the number of scalars.")
 
-        # Check that all vectors have the same length as the first one
-        expected_len = len(vectors[0])
-        for i, v in enumerate(vectors[1:], 1):
-            if len(v) != expected_len:
-                raise ValueError(f"Vector at index {i} has different length ({len(v)}) than expected ({expected_len}).")
+        # Check that all vectors have the same length
+        expected_length = len(vectors[0])
+        for i, vector in enumerate(vectors):
+            if len(vector) != expected_length:
+                raise ValueError(f"Vector at index {i} has different length ({len(vector)}) than expected ({expected_length})")
 
-        # Initialize result vector with zeros
-        result_data = [0.0] * expected_len
+        # Initialize the result vector with zeros, same size as the first vector
+        result_data = [0.0] * expected_length
 
-        # Compute linear combination
-        for vec, scalar in zip(vectors, scalars):
-            for i in range(expected_len):
-                result_data[i] += scalar * vec.data[i]
+        # Iterate through each vector and its corresponding scalar
+        for vector, scalar in zip(vectors, scalars, strict=True):
+            for i in range(len(vector)):
+                result_data[i] += scalar * vector[i]
+    
+        return Vector(result_data)
 
-        # Return a new Vector of the same type as the input vectors
-        return vectors[0].__class__(result_data)
-
-    @staticmethod
-    def angle_cos(u: T, v: T) -> float:
+    # ──────────────────────────────────────────────────────────────────────
+    def dot(self, other):
+            """
+            Compute the dot product of this vector with another vector.
+            
+            Args:
+                other (Vector): The other vector.
+            
+            Returns:
+                float: The dot product.
+            """
+            self._validate_same_size(other)
+            result = 0.0
+            for a, b in zip(self.data, other.data):
+                result += a * b  # Here one could use a fused multiply–add if available.
+            return result
+    # ─────────────────────────────────────────────────────────────────────
+    def norm_1(self) -> float:
         """
-        Computes the cosine of the angle between two vectors u and v.
-
-        Formula: cos(θ) = (u · v) / (‖u‖ * ‖v‖)
-
-        Args:
-            u: The first vector.
-            v: The second vector.
-
+        Compute the 1-norm (Manhattan norm) of the vector.
+        
         Returns:
-            The cosine of the angle between u and v.
+            float: Sum of the absolute values of the coordinates.
+            
+        Example:
+            For [1., 2., 3.], 1-norm = 6.0.
+        """
+        return sum(abs(x) for x in self.data)
+    # ──────────────────────────────────────────────────────────────────────
+    def norm(self) -> float:
+            """
+            Compute the 2-norm (Euclidean norm) of the vector.
+            
+            Returns:
+                float: The square root of the sum of the squares of the coordinates.
+                
+            Example:
+                For [1., 2., 3.], 2-norm ≈ 3.74165738.
+            """
+            return math.sqrt(sum(x * x for x in self.data))
 
+    # ──────────────────────────────────────────────────────────────────────
+    def norm_inf(self) -> float:
+        """
+        Compute the infinity norm (maximum norm) of the vector.
+        
+        Returns:
+            float: The maximum absolute value among the coordinates.
+            
+        Example:
+            For [1., 2., 3.], infinity norm = 3.0.
+        """
+        return max(abs(x) for x in self.data)
+    # ─────────────────────────────────────────────────────────────────────
+    # static methods are used when we want to define a method that does not depend on the instance of the class.
+    @staticmethod
+    def angle_cos(u, v):
+        """
+        Compute the cosine of the angle between two vectors u and v.
+        
+        The formula is:
+        
+            cos(θ) = (u · v) / (‖u‖ * ‖v‖)
+        
+        Behavior is undefined if one (or both) vectors is the zero vector.
+        
+        Args:
+            u (Vector): The first vector.
+            v (Vector): The second vector.
+        
+        Returns:
+            float: The cosine of the angle between u and v.
+        
         Raises:
-            ValueError: If vectors have different sizes or if either has zero norm (magnitude).
+            ValueError: If the vectors are of different sizes or if either has zero norm.
+        
+        Examples:
+            >>> u = Vector.from_list([1., 0.])
+            >>> v = Vector.from_list([1., 0.])
+            >>> print(Vector.angle_cos(u, v))
+            1.0
         """
         u._validate_same_size(v)
         norm_u = u.norm()
         norm_v = v.norm()
         if norm_u == 0 or norm_v == 0:
-            raise ValueError("Cannot compute angle with a zero vector (zero norm).")
-        dot_product = u.dot(v)
-        # Clamp value to [-1, 1] due to potential floating point inaccuracies
-        return max(-1.0, min(1.0, dot_product / (norm_u * norm_v)))
-
+            raise ValueError("Cannot compute angle with zero vector")
+        return u.dot(v) / (norm_u * norm_v)
     # ──────────────────────────────────────────────────────────────────────
-    # Instance Methods
-    def dot(self, other: T) -> float:
-        """
-        Computes the dot product (scalar product) of this vector with another.
 
-        Args:
-            other: The other vector.
-
-        Returns:
-            The dot product.
-
-        Raises:
-            ValueError: If vectors have different sizes.
+    def cross(self, other: "Vector") -> "Vector":
         """
-        self._validate_same_size(other)
-        return sum(a * b for a, b in zip(self.data, other.data))
-
-    def norm_1(self) -> float:
+        Return the cross product of this vector with another 3D vector.
         """
-        Computes the 1-norm (Manhattan norm) of the vector.
-        Sum of the absolute values of the coordinates.
-        """
-        return sum(abs(x) for x in self.data)
-
-    def norm(self) -> float:
-        """
-        Computes the 2-norm (Euclidean norm/magnitude) of the vector.
-        Square root of the sum of the squares of the coordinates.
-        """
-        # Equivalent to math.sqrt(self.dot(self)) but avoids creating zip object
-        return math.sqrt(sum(x * x for x in self.data))
-
-    def norm_inf(self) -> float:
-        """
-        Computes the infinity norm (maximum norm) of the vector.
-        Maximum absolute value among the coordinates.
-        """
-        return max(abs(x) for x in self.data) if self.data else 0.0
-
-    def cross(self: T, other: T) -> T:
-        """
-        Computes the cross product of this vector with another 3D vector.
-
-        Args:
-            other: The other 3D vector.
-
-        Returns:
-            A new 3D Vector representing the cross product.
-
-        Raises:
-            ValueError: If either vector is not 3-dimensional.
-        """
-        self._validate_dimension(3)
-        other._validate_dimension(3) # Also check the other vector
+        if len(self.data) != 3 or len(other.data) != 3:
+            raise ValueError("Cross product requires 3-dimensional vectors")
 
         a1, a2, a3 = self.data
         b1, b2, b3 = other.data
-        cross_data = [
+
+        return Vector([
             a2 * b3 - a3 * b2,
             a3 * b1 - a1 * b3,
             a1 * b2 - a2 * b1,
-        ]
-        return self.__class__(cross_data)
+        ])
+

@@ -852,3 +852,206 @@ The cosine similarity is approximately 0.894, indicating that the vectors point 
 - Both vectors must have the same dimension.
 - Handle the case where one or both vectors are zero vectors (magnitude is zero), which would lead to division by zero. Cosine similarity is typically undefined or considered 0 in this case, depending on the context.
 - The complexity is dominated by the dot product and norm calculations, typically O(n) where n is the vector dimension.
+
+# Ex 06
+
+## The Cross Product
+
+The cross product is an operation between two vectors in three-dimensional space that results in a third vector, which is perpendicular(Means) to both of the original vectors.
+
+**<span style="color:red">Perpendicular means</span>**:
+(meaning they meet at a right angle, like the corner of a square).
+
+### Definition
+
+For two vectors in 3D space, $\mathbf{u} = [u_1, u_2, u_3]$ and $\mathbf{v} = [v_1, v_2, v_3]$, their cross product $\mathbf{u} \times \mathbf{v}$ is defined as:
+
+$$
+\mathbf{u} \times \mathbf{v} = [u_2 v_3 - u_3 v_2, \,\, u_3 v_1 - u_1 v_3, \,\, u_1 v_2 - u_2 v_1]
+$$
+
+
+### Determinant Calculation Method
+
+<details>
+    <summary><b>Click to view Cross Product Calculation Step by Step</b></summary>
+    
+When using the determinant method to calculate the cross product, you can follow these steps:
+
+1. Set up the determinant:
+   
+   $$
+   \mathbf{u} \times \mathbf{v} = \begin{vmatrix}
+   \mathbf{i} & \mathbf{j} & \mathbf{k} \\
+   u_1 & u_2 & u_3 \\
+   v_1 & v_2 & v_3 \\
+   \end{vmatrix}
+   $$
+
+2. Calculate each component using the minors of the first row:
+
+   ![Cross Product Calculation](./assets/CalculateCrossProduct.png)
+
+3. This gives you the resulting vector:
+   
+   $$
+   \mathbf{u} \times \mathbf{v} = \begin{pmatrix}
+   u_2v_3 - u_3v_2 \\
+   u_3v_1 - u_1v_3 \\
+   u_1v_2 - u_2v_1
+   \end{pmatrix}
+   $$
+
+</details>
+
+### Geometric Interpretation
+
+-   **Direction**: The resulting vector $\mathbf{u} \times \mathbf{v}$ is orthogonal (perpendicular) to both $\mathbf{u}$ and $\mathbf{v}$. Its direction is determined by the right-hand rule.
+-   **Magnitude**: The magnitude of the cross product is related to the angle $\theta$ between the vectors:
+    $$
+    ||\mathbf{u} \times \mathbf{v}|| = ||\mathbf{u}|| \times ||\mathbf{v}|| \times |\sin(\theta)|
+    $$
+    This magnitude is equal to the area of the parallelogram spanned by the vectors $\mathbf{u}$ and $\mathbf{v}$.
+
+[Click here to view the 3D Geometric Representation Online](https://www.desmos.com/3d/ag0twyzjye?lang=fr)
+
+### Example Calculation
+
+Let $\mathbf{u} = [1, 2, 3]$ and $\mathbf{v} = [3, 4, 5]$.
+
+Using the formula:
+$$
+\begin{aligned}
+\mathbf{u} \times \mathbf{v} &= [(u_2 v_3 - u_3 v_2), (u_3 v_1 - u_1 v_3), (u_1 v_2 - u_2 v_1)] \\
+&= [(2 \times 5 - 3 \times 4), (3 \times 3 - 1 \times 5), (1 \times 4 - 2 \times 3)] \\
+&= [10 - 12, 9 - 5, 4 - 6] \\
+&= [-2, 4, -2]
+\end{aligned}
+$$
+The resulting vector $[-2, 4, -2]$ is perpendicular to both $[1, 2, 3]$ and $[3, 4, 5]$.
+
+To verify, we can check the dot products:
+$$
+[-2, 4, -2] \cdot [1, 2, 3] = (-2 \times 1) + (4 \times 2) + (-2 \times 3) = -2 + 8 - 6 = 0
+$$
+$$
+[-2, 4, -2] \cdot [3, 4, 5] = (-2 \times 3) + (4 \times 4) + (-2 \times 5) = -6 + 16 - 10 = 0
+$$
+Since the dot products are zero, the resulting vector is indeed orthogonal to both $\mathbf{u}$ and $\mathbf{v}$.
+
+### Properties
+
+-   **Anti-commutative**: $\mathbf{u} \times \mathbf{v} = -(\mathbf{v} \times \mathbf{u})$
+-   **Distributive over addition**: $\mathbf{u} \times (\mathbf{v} + \mathbf{w}) = (\mathbf{u} \times \mathbf{v}) + (\mathbf{u} \times \mathbf{w})$
+-   **Scalar Multiplication**: $(a\mathbf{u}) \times \mathbf{v} = \mathbf{u} \times (a\mathbf{v}) = a(\mathbf{u} \times \mathbf{v})$
+-   **Not Associative**: $(\mathbf{u} \times \mathbf{v}) \times \mathbf{w} \neq \mathbf{u} \times (\mathbf{v} \times \mathbf{w})$
+-   **Zero Vector**: $\mathbf{u} \times \mathbf{u} = \mathbf{0}$ (The cross product of a vector with itself is the zero vector).
+-   **Parallel Vectors**: If $\mathbf{u}$ and $\mathbf{v}$ are parallel ($\theta = 0^\circ$ or $180^\circ$), then $\mathbf{u} \times \mathbf{v} = \mathbf{0}$.
+
+### Applications
+
+-   **Physics**: Calculating torque, angular momentum, and the force on a moving charge in a magnetic field (Lorentz force).
+-   **Computer Graphics**: Finding the normal vector to a surface (e.g., a triangle in a 3D model), which is crucial for lighting calculations.
+-   **Geometry**: Determining if points are collinear, finding the area of a triangle or parallelogram in 3D space, finding a vector perpendicular to a plane defined by two vectors.
+
+### Implementation Considerations
+
+-   The cross product is only defined for vectors in 3-dimensional space.
+-   The calculation involves a fixed number of multiplications and subtractions, so its time complexity is O(1).
+-   Ensure correct implementation of the formula or determinant calculation to get the right components and signs.
+
+---
+
+# Ex 07
+
+## Matrix Multiplication
+
+Matrix multiplication is a fundamental operation where two matrices are combined to produce a third matrix. Unlike element-wise addition or subtraction, matrix multiplication involves multiplying rows of the first matrix by columns of the second matrix.
+
+### Definition
+
+If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix, their product $C = AB$ is an $m \times p$ matrix. The entry $C_{ij}$ (in the $i$-th row and $j$-th column of $C$) is calculated by taking the dot product of the $i$-th row of $A$ and the $j$-th column of $B$.
+
+### Compatibility Requirement
+
+For matrix multiplication to be defined, the matrices must have compatible dimensions:
+
+- If matrix $A$ is of size $m \times n$ (m rows, n columns)
+- And matrix $B$ is of size $n \times p$ (n rows, p columns)
+- Then the product $C = AB$ is defined and will be of size $m \times p$
+
+**Key points about compatibility:**
+
+- The number of columns in the first matrix must equal the number of rows in the second matrix
+- If this condition isn't met, the multiplication is undefined
+- The resulting matrix will have the same number of rows as the first matrix and the same number of columns as the second matrix
+
+**Visual representation of compatible dimensions:**
+
+```
+A (m×n) × B (n×p) = C (m×p)
+```
+
+**Example of compatible matrices:**
+- A 3×5 matrix can be multiplied by a 5×2 matrix, resulting in a 3×2 matrix
+- A 2×2 matrix can be multiplied by a 2×3 matrix, resulting in a 2×3 matrix
+
+**Example of incompatible matrices:**
+- A 2×3 matrix cannot be multiplied by a 2×2 matrix (3 ≠ 2)
+- A 4×1 matrix cannot be multiplied by a 3×5 matrix (1 ≠ 3)
+
+### Formula
+
+The element $C_{ij}$ of the product matrix $C = AB$ is given by:
+
+$$
+C_{ij} = \sum_{k=1}^{n} A_{ik} B_{kj}
+$$
+
+This means you multiply corresponding elements from the $i$-th row of $A$ and the $j$-th column of $B$ and sum the results.
+
+### Example Calculation
+
+Let $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ (a 2x2 matrix) and $B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$ (a 2x2 matrix).
+
+The product $C = AB$ will be a 2x2 matrix.
+
+-   **Element $C_{11}$**: (Row 1 of A) $\cdot$ (Column 1 of B)
+    $$ C_{11} = (1 \times 5) + (2 \times 7) = 5 + 14 = 19 $$
+-   **Element $C_{12}$**: (Row 1 of A) $\cdot$ (Column 2 of B)
+    $$ C_{12} = (1 \times 6) + (2 \times 8) = 6 + 16 = 22 $$
+-   **Element $C_{21}$**: (Row 2 of A) $\cdot$ (Column 1 of B)
+    $$ C_{21} = (3 \times 5) + (4 \times 7) = 15 + 28 = 43 $$
+-   **Element $C_{22}$**: (Row 2 of A) $\cdot$ (Column 2 of B)
+    $$ C_{22} = (3 \times 6) + (4 \times 8) = 18 + 32 = 50 $$
+
+So, the resulting matrix is:
+$$
+C = AB = \begin{pmatrix} 19 & 22 \\ 43 & 50 \end{pmatrix}
+$$
+
+
+### Properties
+
+-   **Not Commutative**: In general, $AB \neq BA$. The order of multiplication matters. $BA$ might not even be defined if the dimensions don't match correctly.
+-   **Associative**: $(AB)C = A(BC)$, provided the dimensions are compatible for all multiplications.
+-   **Distributive**:
+    -   $A(B + C) = AB + AC$ (Left distributivity)
+    -   $(A + B)C = AC + BC$ (Right distributivity)
+-   **Identity Matrix**: If $I$ is the identity matrix of appropriate size, then $AI = A$ and $IA = A$.
+-   **Scalar Multiplication**: $(kA)B = A(kB) = k(AB)$, where $k$ is a scalar.
+
+### Applications
+
+-   **Linear Transformations**: Representing sequences of transformations (like rotation followed by scaling) as a single matrix.
+-   **Solving Systems of Linear Equations**: Used in methods like Gaussian elimination and matrix inversion.
+-   **Computer Graphics**: Transforming points and vectors (translation, rotation, scaling, projection).
+-   **Graph Theory**: Finding paths of a certain length in adjacency matrices.
+-   **Physics and Engineering**: Modeling systems, simulations, quantum mechanics.
+-   **Machine Learning**: Neural network layers, principal component analysis (PCA).
+
+### Implementation Considerations
+
+-   Always check if the matrices are compatible for multiplication (inner dimensions must match).
+-   The standard algorithm has a time complexity of $O(m \times n \times p)$ for multiplying an $m \times n$ matrix by an $n \times p$ matrix. More advanced algorithms like Strassen's algorithm exist but are typically practical only for very large matrices.
+-   Numerical stability can be a concern with floating-point numbers.

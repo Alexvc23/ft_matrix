@@ -1,3 +1,6 @@
+from typing import List
+from vector.vector import Vector
+
 class Matrix:
     """
     A class representing a matrix, supporting basic interpolation.
@@ -171,3 +174,102 @@ class Matrix:
             Matrix: A new Matrix instance.
         """
         return cls(data)
+
+    # ──────────────────────────────────────────────────────────────────────
+    # Matrix Multiplication ex07
+    def mul_vec(self, vec): # Assuming Vector behaves like a list or has __len__ and __getitem__
+        """
+        Multiplies the matrix by a vector.
+
+        Args:
+            vec: A Vector object (or list/tuple) whose length matches the number of columns in the matrix.
+
+        Returns:
+            # Vector: A new Vector object representing the result. 
+            # Returning list as Vector class is not defined/imported.
+            list: A new list representing the result vector components.
+
+        Raises:
+            ValueError: If the matrix is empty, vector is empty, or dimensions mismatch.
+            TypeError: If vector does not support len() or indexing.
+        """
+        if not self.data or not self.data[0]:
+                raise ValueError("Matrix cannot be empty for multiplication.")
+        
+        # Calculate dimensions on the fly
+        rows = len(self.data)
+        cols = len(self.data[0]) 
+        
+        try:
+            vec_len = len(vec) 
+        except TypeError:
+                raise TypeError("Vector must support len()")
+
+        if cols != vec_len:
+            raise ValueError(f"Matrix columns ({cols}) must match vector size ({vec_len})")
+        
+        result_data = []
+        for i in range(rows):
+            acc = 0.0
+            for j in range(cols):
+                try:
+                    # Assuming vec[j] works
+                    acc += self.data[i][j] * vec[j] 
+                except IndexError:
+                        raise IndexError(f"Vector index {j} out of range for length {vec_len}")
+                except TypeError:
+                        raise TypeError("Vector elements must support multiplication with matrix elements.")
+            result_data.append(acc)
+        
+        return Vector(result_data) 
+
+    # ──────────────────────────────────────────────────────────────────────────────
+
+    def mul_mat(self, other: "Matrix") -> "Matrix":
+        """
+        Multiplies this matrix by another matrix.
+
+        Args:
+            other: A Matrix object where the number of rows matches the number of columns in this matrix.
+
+        Returns:
+            Matrix: A new Matrix object representing the result of the multiplication.
+
+        Raises:
+            ValueError: If matrices are empty or dimensions mismatch for multiplication.
+            TypeError: If 'other' is not a Matrix instance or data is invalid.
+        """
+        if not isinstance(other, Matrix):
+                raise TypeError("Can only multiply by another Matrix instance.")
+        if not self.data or not self.data[0] or not other.data or not other.data[0]:
+                raise ValueError("Matrices cannot be empty for multiplication.")
+                
+        # Calculate dimensions on the fly
+        self_rows = len(self.data)
+        self_cols = len(self.data[0])
+        other_rows = len(other.data)
+        other_cols = len(other.data[0])
+
+        # Validate dimensions of 'other' matrix as well
+        for row in other.data:
+            if len(row) != other_cols:
+                    raise ValueError("Other matrix has inconsistent row lengths.")
+
+        if self_cols != other_rows:
+            raise ValueError(f"Matrix A's columns ({self_cols}) must match Matrix B's rows ({other_rows})")
+        
+        # Initialize result matrix with zeros
+        result_data = [[0.0 for _ in range(other_cols)] for _ in range(self_rows)]
+        
+        for i in range(self_rows):
+            for j in range(other_cols):
+                acc = 0.0
+                # Dot product of row i from self and column j from other
+                for k in range(self_cols): # self_cols is same as other_rows
+                    try:
+                        acc += self.data[i][k] * other.data[k][j]
+                    except TypeError:
+                            raise TypeError("Matrix elements must support multiplication.")
+                result_data[i][j] = acc
+                
+        return Matrix(result_data)
