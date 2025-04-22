@@ -1,7 +1,6 @@
+#!/usr/bin/env python3
 from vector.vector import Vector
 from matrix.matrix import Matrix
-
-# ──────────────────────────────────────────────────────────────────────────────
 
 def lerp(u, v, t):
     """
