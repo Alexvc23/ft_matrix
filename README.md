@@ -1082,3 +1082,79 @@ $$
 -   Always check if the matrices are compatible for multiplication (inner dimensions must match).
 -   The standard algorithm has a time complexity of $O(m \times n \times p)$ for multiplying an $m \times n$ matrix by an $n \times p$ matrix. More advanced algorithms like Strassen's algorithm exist but are typically practical only for very large matrices.
 -   Numerical stability can be a concern with floating-point numbers.
+
+# Ex 08
+
+## Trace
+
+The trace of a square matrix is the sum of the elements on its main diagonal (from the upper left to the lower right).
+
+### Definition
+
+For an $n \times n$ square matrix $A$, the trace, denoted as $\text{tr}(A)$, is defined as:
+
+$$
+\text{tr}(A) = \sum_{i=1}^{n} A_{ii} = A_{11} + A_{22} + \dots + A_{nn}
+$$
+
+Where $A_{ii}$ represents the element in the $i$-th row and $i$-th column of matrix $A$.
+
+### Compatibility Requirement
+
+-   The trace operation is only defined for **square matrices** (matrices with the same number of rows and columns, i.e., $n \times n$).
+
+### Example Calculation
+
+Let $A$ be a 3x3 matrix:
+$$
+A = \begin{pmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{pmatrix}
+$$
+
+The main diagonal elements are $A_{11} = 1$, $A_{22} = 5$, and $A_{33} = 9$.
+
+The trace of $A$ is:
+$$
+\text{tr}(A) = 1 + 5 + 9 = 15
+$$
+
+Another example with a 2x2 matrix:
+$$
+B = \begin{pmatrix}
+-2 & 0 \\
+ 3 & 7
+\end{pmatrix}
+$$
+The trace of $B$ is:
+$$
+\text{tr}(B) = -2 + 7 = 5
+$$
+
+### Properties
+
+Let $A$ and $B$ be $n \times n$ square matrices and $c$ be a scalar.
+
+-   **Linearity**:
+    -   $\text{tr}(A + B) = \text{tr}(A) + \text{tr}(B)$
+    -   $\text{tr}(cA) = c \times \text{tr}(A)$
+-   **Transpose Invariance**: $\text{tr}(A) = \text{tr}(A^T)$, where $A^T$ is the transpose of $A$.
+-   **Cyclic Property**: $\text{tr}(ABC) = \text{tr}(BCA) = \text{tr}(CAB)$ (for compatible matrices $A, B, C$). This implies $\text{tr}(AB) = \text{tr}(BA)$ even if $AB \neq BA$.
+-   **Trace and Eigenvalues**: The trace of a matrix is equal to the sum of its eigenvalues (counting multiplicities).
+-   **Trace of Identity Matrix**: $\text{tr}(I_n) = n$, where $I_n$ is the $n \times n$ identity matrix.
+
+### Applications
+
+-   **Linear Algebra**: Used in defining matrix norms (like the Frobenius norm), studying eigenvalues, and characterizing linear transformations.
+-   **Physics**: Appears in quantum mechanics and statistical mechanics (e.g., partition functions).
+-   **Differential Geometry**: Used in defining curvature.
+-   **Machine Learning**: Appears in various contexts, including optimization algorithms and analysis of covariance matrices. For example, the trace of the covariance matrix represents the total variance in the data.
+-   **Numerical Analysis**: Used in matrix decomposition methods and stability analysis.
+
+### Implementation Considerations
+
+-   Ensure the input matrix is square before attempting to calculate the trace.
+-   The calculation involves summing $n$ elements, so the time complexity is $O(n)$, where $n$ is the dimension of the square matrix.
+-   It's a straightforward operation, generally numerically stable.
