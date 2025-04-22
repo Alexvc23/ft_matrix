@@ -316,6 +316,9 @@ class Matrix:
         Space complexity: O(nm)
         """
         # zip(*…) transposes, but we need to convert tuples back to lists
+        # e.g zip([1, 2], [3, 4]) gives (1, 3), (2, 4)
+        # and we need to convert them to lists
+        # e.g [[1, 3], [2, 4]]
         transposed_data = [list(col) for col in zip(*self.data)]
         return Matrix(transposed_data)
 

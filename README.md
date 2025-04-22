@@ -1158,3 +1158,70 @@ Let $A$ and $B$ be $n \times n$ square matrices and $c$ be a scalar.
 -   Ensure the input matrix is square before attempting to calculate the trace.
 -   The calculation involves summing $n$ elements, so the time complexity is $O(n)$, where $n$ is the dimension of the square matrix.
 -   It's a straightforward operation, generally numerically stable.
+# Ex 09
+
+## Transpose
+
+The transpose of a matrix is an operation that flips the matrix over its main diagonal, effectively swapping the row and column indices.
+
+### Definition
+
+For an $m \times n$ matrix $A$, its transpose, denoted as $A^T$, is an $n \times m$ matrix where the element in the $i$-th row and $j$-th column of $A^T$ is the element from the $j$-th row and $i$-th column of $A$.
+
+$$
+(A^T)_{ij} = A_{ji}
+$$
+
+In simpler terms, the rows of $A$ become the columns of $A^T$, and the columns of $A$ become the rows of $A^T$.
+
+### Compatibility Requirement
+
+-   The transpose operation can be applied to **any matrix**, regardless of its dimensions (it does not need to be square). If $A$ is $m \times n$, then $A^T$ is $n \times m$.
+
+### Example Calculation
+
+Let $A$ be a 3x2 matrix:
+$$
+A = \begin{pmatrix}
+1 & 2 \\
+3 & 4 \\
+5 & 6
+\end{pmatrix}
+$$
+
+To find its transpose $A^T$, we swap rows and columns:
+-   The first row $[1, 2]$ becomes the first column.
+-   The second row $[3, 4]$ becomes the second column.
+-   The third row $[5, 6]$ becomes the third column.
+
+The transpose $A^T$ is a 2x3 matrix:
+$$
+A^T = \begin{pmatrix}
+1 & 3 & 5 \\
+2 & 4 & 6
+\end{pmatrix}
+$$
+
+### Properties
+
+Let $A$ and $B$ be matrices of compatible dimensions and $c$ be a scalar.
+
+-   **Involution**: $(A^T)^T = A$ (Transposing twice returns the original matrix).
+-   **Additivity**: $(A + B)^T = A^T + B^T$ (The transpose of a sum is the sum of the transposes).
+-   **Scalar Multiplication**: $(cA)^T = c A^T$ (The transpose of a scaled matrix is the scalar times the transposed matrix).
+-   **Product Rule**: $(AB)^T = B^T A^T$ (The transpose of a product is the product of the transposes in reverse order).
+-   **Determinant**: $\det(A^T) = \det(A)$ (The determinant of the transpose is the same as the original, only for square matrices).
+-   **Trace**: $\text{tr}(A^T) = \text{tr}(A)$ (The trace is invariant under transposition, only for square matrices).
+
+### Applications
+
+-   **Linear Algebra**: Solving systems of linear equations (e.g., normal equations $A^T A x = A^T b$), defining orthogonal matrices ($A^T A = I$), calculating covariance matrices in statistics.
+-   **Data Science / Machine Learning**: Reshaping data, calculating gradients in optimization, defining certain types of neural network layers.
+-   **Computer Graphics**: Sometimes used in transformation calculations, especially involving normal vectors.
+-   **Numerical Analysis**: Used in various matrix factorization algorithms (like QR decomposition).
+
+### Implementation Considerations
+
+-   The transpose operation typically involves creating a new matrix with swapped dimensions.
+-   The time complexity is $O(m \times n)$, as each element of the original matrix needs to be accessed and placed into the new matrix.
+-   For square matrices, in-place transposition is possible but more complex to implement correctly.
