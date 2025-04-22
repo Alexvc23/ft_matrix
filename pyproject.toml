@@ -1,19 +1,35 @@
+# [tool.poetry] section: Defines project metadata used by the Poetry tool.
 [tool.poetry]
+name = "ft-matrix" # The name of the package.
+version = "0.1.0" # The current version of the package.
+description = "Matrix and Vector operations library" # A short description of the package.
+authors = ["Alexvc23 <alexandervalencia1994@gmail.com>"] # List of authors.
+readme = "README.md" # Specifies the file to use as the package's README.
 
-name = "ft-matrix"
-version = "0.1.0"
-description = ""
-authors = ["Alexvc23 <alexandervalencia1994@gmail.com>"]
-readme = "README.md"
+# Specifies the packages to include in the build.
+packages = [
+    { include = "matrix" }, # Includes the 'matrix' package.
+    { include = "vector" }, # Includes the 'vector' package.
+]
 
+# [tool.poetry.dependencies] section: Lists the runtime dependencies for the project.
 [tool.poetry.dependencies]
-python = "^3.10"
-colorama = "^0.4.6"
-pytest = "^7.4.0"
+python = "^3.10" # Specifies the compatible Python versions (>=3.10, <4.0).
+colorama = "^0.4.6" # Specifies the required version of the 'colorama' library.
 
+# Comment explaining the previous location of pytest
+# Moved pytest to dev dependencies
+# pytest = "^7.4.0"
+
+# [tool.poetry.group.dev.dependencies] section: Lists dependencies only needed for development (e.g., testing, linting).
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0" # Specifies the required version of 'pytest' for the 'dev' group.
+
+# [build-system] section: Defines the build system requirements according to PEP 517/518.
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"] # Specifies build-time dependencies, requiring at least version 1.0.0 of poetry-core.
+build-backend = "poetry.core.masonry.api" # Specifies the backend used to build the package (Poetry's own).
 
+# [tool.pytest] section: Configuration settings specific to the pytest tool.
 [tool.pytest]
-addopts = "-s"
+addopts = "-s" # Adds command-line options when running pytest. '-s' disables output capturing, showing print statements.

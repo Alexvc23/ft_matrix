@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from vector import Vector
 from colorama import Fore, init
 

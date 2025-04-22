@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 # ex07/main.py
-from vector.vector import Vector
-from matrix.matrix import Matrix
+from vector.vector import *
+from matrix.matrix import *
 
 def main():
 
