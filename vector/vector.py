@@ -43,18 +43,57 @@ class Vector:
         """
         return len(self.data)
 
+    # ──────────────────────────────────────────────────────────────────────
     def __getitem__(self, idx):
         """
         Get the element at the specified index.
         """
         return self.data[idx]
 
+    # ──────────────────────────────────────────────────────────────────────
     def __repr__(self):
         """
         Return the string representation of the vector.
         e.g print(Vector([1, 2, 3])) will print: Vector([1, 2, 3])
         """
         return f"Vector({self.data})"
+    # ──────────────────────────────────────────────────────────────────────
+    def __eq__(self, other):
+        """
+        Compares this vector with another object for equality.
+        
+        This method checks if this vector is equal to another object.
+        Two vectors are considered equal if they have the same data.
+        A vector and a list are considered equal if the vector's data equals the list.
+        
+        Parameters:
+        -----------
+        other : Vector or list
+            The object to compare with this vector.
+        
+        Returns:
+        --------
+        bool or NotImplemented
+            True if the objects are equal, False if they are not equal,
+            or NotImplemented if comparison is not defined for the given type.
+        
+        Examples:
+        ---------
+        >>> v1 = Vector([1, 2, 3])
+        >>> v2 = Vector([1, 2, 3])
+        >>> v3 = Vector([4, 5, 6])
+        >>> v1 == v2
+        True
+        >>> v1 == v3
+        False
+        >>> v1 == [1, 2, 3]
+        True
+        """
+        if isinstance(other, Vector):
+            return self.data == other.data
+        if isinstance(other, list):
+            return self.data == other
+        return NotImplemented
 
     # ──────────────────────────────────────────────────────────────────────
     # class method are used to create instances of the class in different ways.
