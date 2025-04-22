@@ -27,6 +27,5 @@ def test_trace_non_square_raises():
         u.trace()
 
 def test_trace_empty_raises():
-    u = Matrix.from_list([])
-    with pytest.raises(ValueError):
-        u.trace()
+    with pytest.raises(ValueError, match="Matrix cannot be empty or contain empty rows"):
+        u = Matrix.from_list([])
