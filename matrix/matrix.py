@@ -273,3 +273,23 @@ class Matrix:
                 result_data[i][j] = acc
                 
         return Matrix(result_data)
+
+    # ──────────────────────────────────────────────────────────────────────────────
+    def trace(self) -> float:
+        """
+        Compute and return the trace of the matrix, i.e. the sum of its diagonal elements.
+
+        Returns:
+            float: The sum of A[i][i] for i = 0..n-1.
+
+        Raises:
+            ValueError: If the matrix is empty or not square.
+        """
+        if not self.data or not self.data[0]:
+            raise ValueError("Matrix cannot be empty")
+        n = len(self.data)
+        # validate square
+        for row in self.data:
+            if len(row) != n:
+                raise ValueError("Trace undefined for non-square matrix")
+        return sum(self.data[i][i] for i in range(n))

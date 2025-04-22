@@ -36,6 +36,10 @@
     *   [Norm (Vector Length)](#norm-vector-length)
 13. [Ex 05](#ex-05)
     *   [Cosine Similarity](#cosine-similarity)
+14. [Ex 06](#ex-06)
+    *   [The Cross Product](#the-cross-product)
+15. [Ex 07](#ex-07)
+    *   [Matrix Multiplication](#matrix-multiplication)
 
 ---
 
@@ -138,10 +142,6 @@ This pair of numbers tells you how far you move horizontally and vertically to g
 
 Consider points $A(1, 2)$ and $B(4, 6)$:
 
-- **x-component:** $4 - 1 = 3$  
-- **y-component:** $6 - 2 = 4$
-
-The vector $\overrightarrow{AB}$ can be represented as $(3, 4)$.
 
 <details>
     <summary><b>Click to view the graphical representation</b></summary>
