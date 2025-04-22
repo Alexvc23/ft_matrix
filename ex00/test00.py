@@ -184,7 +184,10 @@ def test_matrix_empty():
         "\nMatrix B = []" +
         "\nExpecting ValueError"
     )
-    A = Matrix([])
-    B = Matrix([])
-    with pytest.raises(ValueError):
-        A.add(B)
+    with pytest.raises(ValueError, match="Matrix cannot be empty or contain empty rows"):
+        A = Matrix([])
+    # If the Matrix class allowed empty matrices, the following would test addition:
+    # A = Matrix([])  # Assuming this was allowed
+    # B = Matrix([])  # Assuming this was allowed
+    # with pytest.raises(ValueError):
+    #     A.add(B)

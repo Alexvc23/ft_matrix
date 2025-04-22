@@ -10,8 +10,18 @@ class Matrix:
     # Constructor
     def __init__(self, data):
         """
-        Initialize the matrix with a 2D list of floats.
+        Initialize the matrix with a two-dimensional list.
+
+        Args:
+            data (list of list of float): The rows of the matrix.
         """
+        if not data or any(not row for row in data):
+            raise ValueError("Matrix cannot be empty or contain empty rows")
+        # ensure all rows have the same length
+        row_len = len(data[0])
+        for row in data:
+            if len(row) != row_len:
+                raise ValueError("All rows must have the same length")
         self.data = data
 
     # ──────────────────────────────────────────────────────────────────────
@@ -293,3 +303,19 @@ class Matrix:
             if len(row) != n:
                 raise ValueError("Trace undefined for non-square matrix")
         return sum(self.data[i][i] for i in range(n))
+
+    # ──────────────────────────────────────────────────────────────────────────────
+    def transpose(self):
+        """
+        Compute and return the transpose of the matrix.
+
+        Returns:
+            Matrix: A new Matrix instance containing the transpose.
+
+        Time complexity: O(nm)
+        Space complexity: O(nm)
+        """
+        # zip(*…) transposes, but we need to convert tuples back to lists
+        transposed_data = [list(col) for col in zip(*self.data)]
+        return Matrix(transposed_data)
+
