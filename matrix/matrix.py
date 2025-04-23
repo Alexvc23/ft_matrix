@@ -371,6 +371,7 @@ class Matrix:
             # Normalize pivot row
             # pv is the pivot value
             # e.g pivot_row = 2 col = 1 pv = A[2][1]
+            pv = A[pivot_row][col]
             A[pivot_row] = [x / pv for x in A[pivot_row]]
             
             # Eliminate all other rows
