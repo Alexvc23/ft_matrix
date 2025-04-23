@@ -1225,3 +1225,105 @@ Let $A$ and $B$ be matrices of compatible dimensions and $c$ be a scalar.
 -   The transpose operation typically involves creating a new matrix with swapped dimensions.
 -   The time complexity is $O(m \times n)$, as each element of the original matrix needs to be accessed and placed into the new matrix.
 -   For square matrices, in-place transposition is possible but more complex to implement correctly.
+# Ex 10
+
+## Row Echelon Form
+
+### In Simple Terms
+
+<span style="color:red">**The goal of Row Echelon Form**</span> is to simplify a matrix into a kind of "staircase" pattern using specific allowed manipulations called row operations. This simplified form makes it much easier to solve systems of linear equations represented by the matrix or to understand fundamental properties of the matrix, like its rank. Think of it as organizing the information in the matrix systematically.
+
+### Definition
+
+A matrix is in **Row Echelon Form (REF)** if it satisfies specific conditions achieved through **Elementary Row Operations**. These operations transform the matrix without changing the solution set of the corresponding linear system.
+
+### Elementary Row Operations
+
+There are three types of elementary row operations:
+
+1.  **Swapping:** Interchange two rows ($R_i \leftrightarrow R_j$).
+2.  **Scaling:** Multiply a row by a non-zero scalar ($R_i \rightarrow c R_i$, where $c \neq 0$).
+3.  **Replacement:** Add a multiple of one row to another row ($R_i \rightarrow R_i + k R_j$, where $k$ is any scalar and $i \neq j$).
+
+### Criteria for Row Echelon Form (REF)
+
+A matrix is in Row Echelon Form if it meets these conditions:
+
+1.  **Zero Rows:** All rows consisting entirely of zeros are grouped at the bottom of the matrix.
+2.  **Leading Entries (Pivots):** For each non-zero row, the first non-zero entry (called the leading entry or pivot) is strictly to the right of the leading entry of the row above it.
+
+*(Note: Some definitions require pivots to be 1, but often this is reserved for Reduced Row Echelon Form).*
+
+### Example Calculation (Gaussian Elimination to REF)
+
+Let's transform the following matrix into Row Echelon Form:
+$$
+A = \begin{pmatrix}
+1 & 2 & 3 \\
+2 & 5 & 8 \\
+1 & 1 & 2
+\end{pmatrix}
+$$
+
+1.  **Eliminate entries below the first pivot (A<sub>11</sub>=1):**
+    *   Replace $R_2$ with $R_2 - 2R_1$:
+        $$ \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 1 & 1 & 2 \end{pmatrix} $$
+    *   Replace $R_3$ with $R_3 - R_1$:
+        $$ \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 0 & -1 & -1 \end{pmatrix} $$
+2.  **Eliminate entries below the second pivot (A<sub>22</sub>=1):**
+    *   Replace $R_3$ with $R_3 + R_2$:
+        $$ \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 0 & 0 & 1 \end{pmatrix} $$
+
+The resulting matrix is now in Row Echelon Form:
+$$
+A_{REF} = \begin{pmatrix}
+1 & 2 & 3 \\
+0 & 1 & 2 \\
+0 & 0 & 1
+\end{pmatrix}
+$$
+It satisfies the conditions: no zero rows, and the leading entries (1, 1, 1) move progressively to the right.
+
+### Reduced Row Echelon Form (RREF)
+
+A matrix is in **Reduced Row Echelon Form (RREF)** if it meets the REF conditions plus two more:
+
+1.  **Pivot Value:** Every leading entry (pivot) is 1.
+2.  **Zeroes Above Pivots:** Each leading 1 is the only non-zero entry in its column.
+
+Continuing the example to get RREF:
+$$
+A_{REF} = \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 0 & 0 & 1 \end{pmatrix}
+$$
+1.  **Eliminate entries above the third pivot (A<sub>33</sub>=1):**
+    *   $R_2 \rightarrow R_2 - 2R_3$:
+        $$ \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} $$
+    *   $R_1 \rightarrow R_1 - 3R_3$:
+        $$ \begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} $$
+2.  **Eliminate entries above the second pivot (A<sub>22</sub>=1):**
+    *   $R_1 \rightarrow R_1 - 2R_2$:
+        $$ \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} $$
+
+The resulting matrix is the identity matrix, which is in RREF.
+$$
+A_{RREF} = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$$
+
+### Applications
+
+-   **Solving Systems of Linear Equations:** Gaussian elimination (transforming the augmented matrix to REF or RREF) is a standard method for finding solutions.
+-   **Finding Matrix Rank:** The rank of a matrix is the number of non-zero rows (or pivots) in its Row Echelon Form.
+-   **Calculating Determinants:** Row operations can simplify determinant calculations (keeping track of how operations affect the determinant).
+-   **Finding Matrix Inverses:** The Gauss-Jordan elimination method (transforming $[A | I]$ to $[I | A^{-1}]$) uses row operations to find the inverse.
+-   **Determining Linear Independence:** Used to check if a set of vectors is linearly independent.
+
+### Implementation Considerations
+
+-   The process of transforming a matrix to REF is called **Gaussian Elimination**. Transforming to RREF is called **Gauss-Jordan Elimination**.
+-   **Pivoting Strategy:** When implementing, choosing the pivot element in each column is important. Using the entry with the largest absolute value in the current column (partial pivoting) can improve numerical stability, especially with floating-point numbers.
+-   **Computational Complexity:** The standard Gaussian elimination algorithm has a time complexity of approximately $O(n^3)$ for an $n \times n$ matrix.
+-   Handle potential division by zero when scaling rows to make pivots equal to 1 (if required for RREF) or during elimination steps if a pivot candidate is zero. Swapping rows is often necessary.
