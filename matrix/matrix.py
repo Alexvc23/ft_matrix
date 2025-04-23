@@ -1,4 +1,4 @@
-from typing import List
+from copy import deepcopy
 from vector.vector import Vector
 
 class Matrix:
@@ -322,3 +322,42 @@ class Matrix:
         transposed_data = [list(col) for col in zip(*self.data)]
         return Matrix(transposed_data)
 
+    # ──────────────────────────────────────────────────────────────────────
+
+    def row_echelon(self):
+        """
+        Compute and return the **reduced** row‐echelon form (RREF) of the matrix
+        using Gauss‐Jordan elimination.
+
+        Returns:
+            Matrix: A new Matrix instance in reduced row‐echelon form.
+        """
+        A = deepcopy(self.data)
+        m = len(A)
+        n = len(A[0])
+        pivot_row = 0
+
+        for col in range(n):
+            if pivot_row >= m:
+                break
+            # Find pivot in or below pivot_row
+            pivot = None
+            for r in range(pivot_row, m):
+                if abs(A[r][col]) > 1e-12: # 1e-12 is equivalent to 10**-12
+                    pivot = r
+                    break
+            if pivot is None:
+                continue
+            # Swap into position
+            A[pivot_row], A[pivot] = A[pivot], A[pivot_row]
+            # Normalize pivot row
+            pv = A[pivot_row][col]
+            A[pivot_row] = [x / pv for x in A[pivot_row]]
+            # Eliminate all other rows
+            for r in range(m):
+                if r != pivot_row and abs(A[r][col]) > 1e-12:
+                    factor = A[r][col]
+                    A[r] = [a_r - factor * a_p for a_r, a_p in zip(A[r], A[pivot_row])]
+            pivot_row += 1
+
+        return Matrix(A)

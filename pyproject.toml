@@ -1,9 +1,14 @@
 # [tool.poetry] section: Defines project metadata used by the Poetry tool.
 [tool.poetry]
+
 name = "ft-matrix" # The name of the package.
+
 version = "0.1.0" # The current version of the package.
+
 description = "Matrix and Vector operations library" # A short description of the package.
+
 authors = ["Alexvc23 <alexandervalencia1994@gmail.com>"] # List of authors.
+
 readme = "README.md" # Specifies the file to use as the package's README.
 
 # Specifies the packages to include in the build.
