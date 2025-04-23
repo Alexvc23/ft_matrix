@@ -332,27 +332,47 @@ class Matrix:
         Returns:
             Matrix: A new Matrix instance in reduced row‐echelon form.
         """
+        # Make a deep copy of the matrix to avoid modifying the original
         A = deepcopy(self.data)
+        # m = number of rows
         m = len(A)
+        # n = number of columns
         n = len(A[0])
+        # pivot_row 
         pivot_row = 0
 
+        # Iterate over each column
+        # !Iterate over columns
         for col in range(n):
+            # Find the pivot row for this column
             if pivot_row >= m:
                 break
             # Find pivot in or below pivot_row
             pivot = None
+            # !Iterate over rows starting from pivot_row 
             for r in range(pivot_row, m):
-                if abs(A[r][col]) > 1e-12: # 1e-12 is equivalent to 10**-12
-                    pivot = r
+
+                # !Check if the current index A[r][col] is a pivot 
+                # ?A pivot is a non-zero element in the current row
+                # ?where the next pivot is to the right in the next row 
+                # ?greater than epsion = 0.000000000001
+
+                if abs(A[r][col]) > 1e-12:  
+                    pivot = r #! Found a pivot
                     break
+
+            # If no pivot is found, continue to the next column
             if pivot is None:
                 continue
             # Swap into position
+            # e.g A[1, 2] = A[2, 1]
             A[pivot_row], A[pivot] = A[pivot], A[pivot_row]
+
             # Normalize pivot row
-            pv = A[pivot_row][col]
+            # pv is the pivot value
+            # e.g pivot_row = 2 col = 1 pv = A[2][1]
             A[pivot_row] = [x / pv for x in A[pivot_row]]
+            
             # Eliminate all other rows
             for r in range(m):
                 if r != pivot_row and abs(A[r][col]) > 1e-12:
