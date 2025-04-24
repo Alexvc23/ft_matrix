@@ -1240,6 +1240,35 @@ There are three types of elementary row operations:
 2.  **Scaling:** Multiply a row by a non-zero scalar ($R_i \rightarrow c R_i$, where $c \neq 0$).
 3.  **Replacement:** Add a multiple of one row to another row ($R_i \rightarrow R_i + k R_j$, where $k$ is any scalar and $i \neq j$).
 
+<details>
+<summary><span style="color:red">Click to view notation explanation</span></summary>
+
+Okay, let's break down the notation used for each elementary row operation:
+
+1.  **Swapping: $R_i \leftrightarrow R_j$**
+    *   `R`: Stands for "Row".
+    *   `i`, `j`: These are subscripts representing the *indices* or *numbers* of the rows you are working with. For example, `R₁` would be the first row, `R₂` the second, and so on. `i` and `j` are just placeholders for specific row numbers.
+    *   `↔`: This double-headed arrow signifies an *interchange* or *swap*. It means row `i` and row `j` exchange places.
+
+2.  **Scaling: $R_i \rightarrow c R_i$, where $c \neq 0$**
+    *   `R`: Stands for "Row".
+    *   `i`: The index of the row being modified.
+    *   `→`: This arrow means "is replaced by" or "becomes". It indicates the result of the operation.
+    *   `c`: Represents a *scalar*, which is just a constant number (like 2, -5, or 0.5).
+    *   `c R_i`: This means you multiply *every element* in row `i` by the scalar `c`.
+    *   `c ≠ 0`: This is a condition stating that the scalar `c` *must not be zero*. You can't multiply a row by zero because that would lose information and make the operation irreversible.
+
+3.  **Replacement: $R_i \rightarrow R_i + k R_j$, where $k$ is any scalar and $i \neq j$**
+    *   `R`: Stands for "Row".
+    *   `i`, `j`: Indices for the rows involved. `Rᵢ` is the row being *replaced*, and `Rⱼ` is the row being *used* to modify `Rᵢ`.
+    *   `→`: Means "is replaced by".
+    *   `k`: Represents any scalar (it *can* be zero in this case).
+    *   `k R_j`: This means you first multiply every element in row `j` by the scalar `k`.
+    *   `R_i + k R_j`: This signifies adding the corresponding elements of the *original* row `i` and the *scaled* row `j` (`k R_j`). The result of this addition becomes the *new* row `i`.
+    *   `i ≠ j`: This condition states that the row being replaced (`i`) must be different from the row being used to perform the replacement (`j`). You add a multiple of *another* row to the target row.
+
+</details>
+
 ### Criteria for Row Echelon Form (REF)
 
 A matrix is in Row Echelon Form if it meets these conditions:
@@ -1393,6 +1422,88 @@ $$
 <summary><b><span style="color:red">Click to view RREF Example Details</span></b></summary>
 <img src="./assets/reducedRowEchelonFormDetailed.png" alt="RREF Detailed Example" width="70%" height="70%" />
 <p><i>This image shows the step-by-step transformation of a matrix into Reduced Row Echelon Form (RREF), highlighting the row operations used.</i></p>
+</details>
+
+<details>
+<summary><b><span style="color:blue">Click to view Python Function Explanation (Gauss-Jordan Elimination)</span></b></summary>
+
+---
+
+## Elementary Row Operations in Gauss–Jordan Elimination
+
+In the `row_echelon` method of the `Matrix` class, the three classic **elementary row operations** are applied to transform the matrix into its **reduced row-echelon form** (RREF). Below is a detailed explanation in **Markdown** with **LaTeX** formulas.
+
+---
+
+### 1. Row Swapping
+
+When there is no nonzero pivot in the current row, the algorithm searches the rows below and, if it finds one, swaps rows:
+
+```python
+# Code:
+A[pivot_row], A[pivot] = A[pivot], A[pivot_row]
+```
+
+**LaTeX formula**:
+
+$$
+R_{i} \longleftrightarrow R_{j}
+$$
+
+- *Description*: Swap row $R_i$ with row $R_j$.
+
+---
+
+### 2. Row Scaling (Normalization)
+
+Once the pivot row is in place, the entire row is divided by the pivot value to make the pivot element equal to 1:
+
+```python
+pv = A[pivot_row][col]
+A[pivot_row] = [x / pv for x in A[pivot_row]]
+```
+
+**LaTeX formula**:
+
+$$
+R_i := \frac{1}{a_{ii}}\,R_i
+$$
+
+- *Description*: Multiply row $R_i$ by the scalar $\frac{1}{a_{ii}}$, where $a_{ii}$ is the pivot element.
+
+---
+
+### 3. Row Replacement (Elimination)
+
+To eliminate all other entries in the pivot column, subtract an appropriate multiple of the pivot row from each other row:
+
+```python
+factor = A[r][col]
+A[r] = [a_r - factor * a_p for a_r, a_p in zip(A[r], A[pivot_row])]
+```
+
+**LaTeX formula**:
+
+$$
+R_j := R_j - \ell\,R_i
+$$
+
+- *Description*: Subtract $\ell = R_j[\text{col}]$ times the pivot row $R_i$ from row $R_j$ to zero out the pivot column entry.
+
+---
+
+### Full Algorithm Flow
+
+1. Iterate over each column $j = 0, 1, \dots, n-1$ while there are unprocessed rows.
+2. Find a nonzero pivot in or below the current pivot row.
+3. **Row swapping** if the pivot is not already in the pivot row.
+4. **Row scaling** to make the pivot element $1$ at position $(i, j)$.
+5. **Row replacement** to eliminate all other entries in column $j$.
+6. Move to the next pivot row.
+
+These operations ensure the resulting matrix is in **reduced row-echelon form** (RREF), where each pivot is 1 and is the only nonzero entry in its column.
+
+---
 </details>
 
 ### Applications
