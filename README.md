@@ -1389,6 +1389,12 @@ A_{RREF} = \begin{pmatrix}
 \end{pmatrix}
 $$
 
+<details>
+<summary><b><span style="color:red">Click to view RREF Example Details</span></b></summary>
+<img src="./assets/reducedRowEchelonFormDetailed.png" alt="RREF Detailed Example" width="70%" height="70%" />
+<p><i>This image shows the step-by-step transformation of a matrix into Reduced Row Echelon Form (RREF), highlighting the row operations used.</i></p>
+</details>
+
 ### Applications
 
 -   **Solving Systems of Linear Equations:** Gaussian elimination (transforming the augmented matrix to REF or RREF) is a standard method for finding solutions.
