@@ -670,6 +670,18 @@ $$
 
 The dot product is a fundamental operation between two vectors that results in a scalar value. It's also called the scalar product or inner product.
 
+### Goals of the Dot Product
+
+- **Measure similarity between vectors**: The dot product tells you how much two vectors point in the same direction
+- **Find angles between vectors**: The dot product formula can be rearranged to calculate angles
+- **Create linear transformations**: The dot product enables projection operations that form the basis of many linear transformations
+
+### Why We Calculate the Dot Product
+
+- **Quantifies vector relationships:** The scalar result provides a single number that measures how vectors interact
+- **Simplifies complexity:** Reduces multidimensional vector relationships into a meaningful magnitude
+- **Enables algebraic operations:** Allows for mathematical operations that wouldn't be possible with vector results
+
 ### Definition
 
 For two vectors $\mathbf{u} = [u_1, u_2, ..., u_n]$ and $\mathbf{v} = [v_1, v_2, ..., v_n]$, their dot product is:
@@ -683,7 +695,7 @@ $$
 If $\mathbf{u} = [1, 2, 3]$ and $\mathbf{v} = [4, 5, 6]$:
 
 $$
-\mathbf{u} \cdot \mathbf{v} = 1 \times 4 + 2 \times 5 + 3 \times 6 = 4 + 10 + 18 = 32
+\mathbf{u} \cdot \mathbf{v} = (1 \times 4) + ( 2 \times 5 )+ ( 3 \times 6) = 4 + 10 + 18 = 32
 $$
 
 ### Geometric Interpretation
@@ -701,7 +713,47 @@ Where:
 <details>
     <summary><b>Click to view Geometric Representation</b></summary>
     <img src="./assets/dot_product.png" alt="Dot Product Geometry" width="50%" height="50%" />
+    <img src="./assets/dot_product_linear_transformation.png" alt="Dot Product Linear Transformation" width="50%" height="50%" />
+    <p><i>The dot product geometrically represents how much of one vector points in the direction of another, scaled by their magnitudes.</i></p>
 </details>
+</details>
+
+
+
+### Dot Product vs. Cosine Similarity: Key Differences
+
+The dot product and cosine similarity are related mathematical operations that measure relationships between vectors, but they serve different purposes and have distinct properties.
+
+#### Dot Product
+
+- **What it measures**: Both direction alignment AND magnitude of vectors
+- **Formula**: $\mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} v_i w_i = \|\mathbf{v}\| \|\mathbf{w}\| \cos\theta$
+- **Magnitude dependence**: If you double the length of one vector, the dot product doubles too
+- **Range**: From $-\|\mathbf{v}\|\|\mathbf{w}\|$ to $+\|\mathbf{v}\|\|\mathbf{w}\|$
+- **Best for**: Problems where both direction and magnitude matter (like calculating physical work or energy)
+
+#### Cosine Similarity 
+
+- **What it measures**: ONLY direction alignment between vectors
+- **Formula**: $\text{cosine\_similarity}(\mathbf{v},\mathbf{w}) = \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \|\mathbf{w}\|} = \cos\theta$
+- **Magnitude dependence**: None - scaling vectors doesn't change the result
+- **Range**: Always between -1 and +1
+    - +1: vectors point in identical directions
+    - 0: vectors are perpendicular
+    - -1: vectors point in opposite directions
+- **Best for**: When you only care about how parallel vectors are, regardless of their size
+
+#### When to Use Each
+
+- **Use dot product when**: You need to account for both how aligned vectors are AND how large they are
+    - Physics calculations (work, force projections)
+    - When magnitude matters as much as direction
+
+- **Use cosine similarity when**: You only care about similarity in direction, regardless of size
+    - Text analysis (comparing documents regardless of length)
+    - Recommendation systems (comparing preferences regardless of intensity)
+    - Pattern recognition (when scale shouldn't affect similarity)
+
 
 ### Properties
 
@@ -1622,3 +1674,101 @@ These operations ensure the resulting matrix is in **reduced row-echelon form** 
 -   Handle potential division by zero when scaling rows to make pivots equal to 1 (if required for RREF) or during elimination steps if a pivot candidate is zero. SwappingOkay, let's break down thiseexample step-by-step. The goal is transform the starting matrix into **Row Echelon Form (**. Think of REF as a "staircase" pattern wh1.  Any rows consisting entirely of zeroare a the bottom.
 2.  For ows tht are't all zero, the irst nn-zeo nuber (**pivot** or leading entry) is always to the right of the pivot in the row above it.
 3.  Often (like in this example), the pivots are made to be 1.
+
+# Ex 11
+
+## Determinant
+
+The determinant is a scalar value that can be computed from the elements of a square matrix. It encodes certain properties of the linear transformation described by the matrix and has important applications in linear algebra, geometry, and calculus.
+
+### Compatibility Requirement
+
+-   The determinant is only defined for **square matrices** ($n \times n$).
+
+### Calculation Methods
+
+*   **2x2 Matrix:**
+    For a matrix $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$, the determinant is:
+    $$ \det(A) = |A| = ad - bc $$
+
+*   **3x3 Matrix (Sarrus' Rule):**
+    For a matrix $A = \begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$, the determinant can be calculated using Sarrus' rule:
+    $$ \det(A) = a(ei - fh) - b(di - fg) + c(dh - eg) $$
+    Visually: Add the products of the forward diagonals and subtract the products of the backward diagonals.
+    <details>
+        <summary><b>Click to view Sarrus' Rule Visualization</b></summary>
+        <img src="./assets/sarrus_rule.png" alt="Sarrus Rule" width="50%" height="50%" />
+        <p><i>Repeat the first two columns to the right. Add products of diagonals from top-left to bottom-right. Subtract products of diagonals from top-right to bottom-left.</i></p>
+        <p>$\det(A) = (aei + bfg + cdh) - (ceg + afh + bdi)$</p>
+    </details>
+
+*   **General Method (Cofactor Expansion / Laplace Expansion):**
+    The determinant can be calculated by expanding along any row or column. Expanding along the $i$-th row:
+    $$ \det(A) = \sum_{j=1}^{n} (-1)^{i+j} A_{ij} M_{ij} $$
+    Expanding along the $j$-th column:
+    $$ \det(A) = \sum_{i=1}^{n} (-1)^{i+j} A_{ij} M_{ij} $$
+    Where:
+    -   $A_{ij}$ is the element in the $i$-th row and $j$-th column.
+    -   $M_{ij}$ is the determinant of the $(n-1) \times (n-1)$ submatrix obtained by removing the $i$-th row and $j$-th column (called the minor).
+    -   $C_{ij} = (-1)^{i+j} M_{ij}$ is the cofactor of $A_{ij}$.
+
+### Example Calculation
+
+*   **2x2 Example:**
+    Let $A = \begin{pmatrix} 3 & 8 \\ 4 & 6 \end{pmatrix}$.
+    $$ \det(A) = (3 \times 6) - (8 \times 4) = 18 - 32 = -14 $$
+
+*   **3x3 Example (using cofactor expansion along the first row):**
+    Let $B = \begin{pmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 1 & 0 & 6 \end{pmatrix}$.
+    $$
+    \begin{aligned}
+    \det(B) &= 1 \cdot C_{11} + 2 \cdot C_{12} + 3 \cdot C_{13} \\
+    &= 1 \cdot (-1)^{1+1} \begin{vmatrix} 4 & 5 \\ 0 & 6 \end{vmatrix} + 2 \cdot (-1)^{1+2} \begin{vmatrix} 0 & 5 \\ 1 & 6 \end{vmatrix} + 3 \cdot (-1)^{1+3} \begin{vmatrix} 0 & 4 \\ 1 & 0 \end{vmatrix} \\
+    &= 1 \cdot (1) \cdot (4 \times 6 - 5 \times 0) + 2 \cdot (-1) \cdot (0 \times 6 - 5 \times 1) + 3 \cdot (1) \cdot (0 \times 0 - 4 \times 1) \\
+    &= 1 \cdot (24) - 2 \cdot (-5) + 3 \cdot (-4) \\
+    &= 24 + 10 - 12 \\
+    &= 22
+    \end{aligned}
+    $$
+
+### Properties
+
+*   **Identity Matrix:** $\det(I_n) = 1$.
+*   **Row/Column Operations:**
+    *   Swapping two rows/columns multiplies the determinant by -1.
+    *   Multiplying a row/column by a scalar $c$ multiplies the determinant by $c$.
+    *   Adding a multiple of one row/column to another does *not* change the determinant.
+*   **Transpose:** $\det(A^T) = \det(A)$.
+*   **Product:** $\det(AB) = \det(A) \det(B)$ for square matrices $A, B$ of the same size.
+*   **Inverse:** A square matrix $A$ is invertible if and only if $\det(A) \neq 0$. If invertible, $\det(A^{-1}) = 1 / \det(A)$.
+*   **Triangular Matrix:** The determinant of a triangular matrix (upper or lower) is the product of its diagonal entries.
+*   **Zero Row/Column:** If a matrix has a row or column consisting entirely of zeros, its determinant is 0.
+*   **Dependent Rows/Columns:** If the rows or columns of a matrix are linearly dependent, its determinant is 0.
+
+### Geometric Interpretation
+
+*   In 2D, the absolute value of the determinant $|\det(A)|$ represents the **area scaling factor** of the linear transformation defined by matrix $A$. It tells how much the area of a shape (like the unit square) changes when transformed by $A$.
+*   In 3D, $|\det(A)|$ represents the **volume scaling factor**.
+*   The sign of the determinant indicates whether the transformation preserves orientation (positive determinant) or reverses it (negative determinant). A determinant of 0 means the transformation collapses the space into a lower dimension (e.g., maps a 2D area to a line or point).
+
+<details>
+    <summary><b>Click to view Geometric Interpretation Visualization (2D)</b></summary>
+    <img src="./assets/determinant_geometric.png" alt="Determinant Geometric Interpretation" width="60%" height="60%" />
+    <p><i>The matrix transforms the unit square (area 1) into a parallelogram. The area of this parallelogram is equal to the absolute value of the determinant of the matrix. The sign indicates orientation change.</i></p>
+</details>
+
+### Applications
+
+*   **Solving Systems of Linear Equations:** Cramer's rule uses determinants to find solutions (though often computationally inefficient).
+*   **Finding Matrix Inverses:** The adjugate matrix formula for the inverse involves determinants.
+*   **Checking Invertibility:** A non-zero determinant indicates an invertible matrix.
+*   **Calculating Eigenvalues:** Determinants are used in finding the characteristic polynomial ($\det(A - \lambda I) = 0$).
+*   **Geometry:** Calculating areas of parallelograms/triangles and volumes of parallelepipeds/tetrahedrons.
+*   **Calculus:** Used in change of variables for multiple integrals (Jacobian determinant).
+
+### Implementation Considerations
+
+*   Calculating determinants using cofactor expansion has a factorial time complexity ($O(n!)$), which is highly inefficient for large matrices.
+*   A more efficient method is to use Gaussian elimination to transform the matrix into row echelon form (which is triangular). The determinant is then the product of the diagonal entries, adjusted by factors of -1 for row swaps and scaling factors used. This method has a complexity of $O(n^3)$.
+*   Numerical stability can be an issue with floating-point numbers, especially for matrices that are close to singular (determinant close to zero). Pivoting strategies used in Gaussian elimination help mitigate this.
+*   For very large matrices, specialized numerical methods are used.

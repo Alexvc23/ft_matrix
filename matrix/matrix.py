@@ -382,3 +382,49 @@ class Matrix:
             pivot_row += 1
 
         return Matrix(A)
+
+    # ──────────────────────────────────────────────────────────────
+
+    def determinant(self) -> float:
+        """
+        Compute det(A) via LU‐style elimination (no pivoting beyond row swaps).
+        Returns 0.0 if a zero pivot is encountered.
+
+        Raises:
+            ValueError: if the matrix is empty, has empty rows, or is not square.
+        """
+        # Validate matrix
+        if not self.data or any(not row for row in self.data):
+            raise ValueError("Matrix cannot be empty or contain empty rows")
+        n = len(self.data)
+        for row in self.data:
+            if len(row) != n:
+                raise ValueError("Cannot compute determinant of non-square matrix")
+
+        # Make a deep copy so we don't mutate self.data
+        A = deepcopy(self.data)
+        sign = 1
+        det = 1.0
+        EPS = 1e-12
+
+        for i in range(n):
+            # Find nonzero pivot in column i at or below row i
+            pivot = i
+            while pivot < n and abs(A[pivot][i]) < EPS:
+                pivot += 1
+            if pivot == n:
+                return 0.0
+            # Swap rows if needed
+            if pivot != i:
+                A[i], A[pivot] = A[pivot], A[i]
+                sign = -sign
+            pivot_val = A[i][i]
+            det *= pivot_val
+            # Eliminate below
+            for r in range(i + 1, n):
+                factor = A[r][i] / pivot_val
+                for c in range(i, n):
+                    A[r][c] -= factor * A[i][c]
+
+        # return the determinant data type = float
+        return sign * det
